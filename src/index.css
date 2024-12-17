@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f9fafb; /* Tailwind's gray-50 */
+    color: #333;
+  }
+  
+  /* .card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+  } */
+
+  img {
+    transition: transform 0.3s ease-in-out;
+  }
+  img:hover {
+    transform: scale(1.02);
+  }
