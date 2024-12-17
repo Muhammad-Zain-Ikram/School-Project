@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+const motion = await import('tailwindcss-motion');
 export default {
+   plugins: [motion.default],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
