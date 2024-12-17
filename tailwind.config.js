@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-const motion = await import('tailwindcss-motion');
+import motion from 'tailwindcss-motion'; // ES Module import works here
+
 export default {
-   plugins: [motion.default],
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -15,5 +15,5 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-motion')], 
-}
+  plugins: [motion], // Use the imported plugin directly
+};
