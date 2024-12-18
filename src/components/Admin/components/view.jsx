@@ -7,7 +7,7 @@ const View = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await getRequest(`${process.env.REACT_APP_PORT}/api/getClass`);
+            const response = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getClass`);
             setData(response.data);
         } catch (error) {
             console.error("Error fetching class data:", error);
@@ -19,7 +19,7 @@ const View = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const teacherResponse = await getRequest(`${process.env.REACT_APP_PORT}/api/getTeacher`);
+            const teacherResponse = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`);
             setTeacherData(teacherResponse.data);
         } catch (error) {
             console.error("Error fetching class data:", error);

@@ -16,7 +16,7 @@ const AuthProvider = ({ children }) => {
   const fetchAuth = useMemo(() => {
     return  async () => {
       try {
-          const response = await fetch(`${process.env.REACT_APP_PORT}/portal/auth`, {
+          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/portal/auth`, {
               method: "GET",
               credentials: "include",
           });

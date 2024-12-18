@@ -13,7 +13,7 @@ const StudentsInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getRequest(`${process.env.REACT_APP_PORT}/api/getClass`);
+        const response = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getClass`);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching class data:", error);
@@ -39,7 +39,7 @@ const StudentsInfo = () => {
     
     try {
       const response = await sendJSONRequest(
-        `${process.env.REACT_APP_PORT}/portal/add/user`, 
+        `${process.env.REACT_APP_BACKEND_URL}/portal/add/user`, 
         studentData
       );
       setRedirect(true)

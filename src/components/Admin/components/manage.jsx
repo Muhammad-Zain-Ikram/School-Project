@@ -11,7 +11,7 @@ const manage = () => {
         const fetchData = async () => {
           try {
             const response = await getRequest(
-              `${process.env.REACT_APP_PORT}/api/getTeacher`
+              `${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`
             );
             setData(response.data);
           } catch (error) {
@@ -30,7 +30,7 @@ const handleRemoveTeachers = async () => {
       }
 
       const posting = await sendJSONRequest(
-        `${process.env.REACT_APP_PORT}/portal/delete/user`,
+        `${process.env.REACT_APP_BACKEND_URL}/portal/delete/user`,
         {
           id: selectedTeachers,
           delete: "teacher",

@@ -17,20 +17,20 @@ const AttendenceProvider = ({ children,type}) =>{
     const fetchData =async()=>{
   try {
           if(type === "Teacher"){
-              let teacherData = await getRequest(`${process.env.REACT_APP_PORT}/api/getTeacher`);
+              let teacherData = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`);
               teacherData = Object.values(teacherData.data).flat();
-              let attendData = await sendJSONRequest(`${process.env.REACT_APP_PORT}/api/getTodayAttendence`, {type : type});
+              let attendData = await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTodayAttendence`, {type : type});
               attendData =Object.values(attendData.data).flat()
               processData(teacherData, attendData)
               setLoading(false)
           }
           else if (type === "Student"){
-              let studentData = await sendJSONRequest(`${process.env.REACT_APP_PORT}/api/getStudents`, {classes : grade ? grade : ""});
+              let studentData = await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getStudents`, {classes : grade ? grade : ""});
               studentData = Object.values(studentData.data).flat();
-              let attendData = await sendJSONRequest(`${process.env.REACT_APP_PORT}/api/getTodayAttendence`, {type : type , classes : grade ? grade : ""});
+              let attendData = await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTodayAttendence`, {type : type , classes : grade ? grade : ""});
               attendData =Object.values(attendData.data).flat() 
               processData(studentData, attendData)
-              let gradeData = await getRequest(`${process.env.REACT_APP_PORT}/api/getClass`);
+              let gradeData = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getClass`);
               gradeData = Object.values(gradeData.data).flat();
               setClasses(gradeData) 
               setLoading(false)

@@ -49,7 +49,7 @@ const AddTeacher = () => {
   
       try {
         const response = await sendJSONRequest(
-          `${process.env.REACT_APP_PORT}/portal/add/user`,
+          `${process.env.REACT_APP_BACKEND_URL}/portal/add/user`,
           formData
         );
         setSuccessM("Add Teacher Successfully");

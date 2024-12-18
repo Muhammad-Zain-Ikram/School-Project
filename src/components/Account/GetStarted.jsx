@@ -52,7 +52,7 @@ function GetStarted() {
     if (!newError.email && !newError.password) {
       try {
         const response = await sendJSONRequest(
-          `${process.env.REACT_APP_PORT}/portal/login`,
+          `${process.env.REACT_APP_BACKEND_URL}/portal/login`,
           { email, password }
         );
 

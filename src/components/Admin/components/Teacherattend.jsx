@@ -39,7 +39,7 @@ const Teacherattend = React.memo(() =>{
 
     try {
       if(!issent){
-        await sendJSONRequest(`${process.env.REACT_APP_PORT}/portal/mark/attendence`, data);
+        await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/portal/mark/attendence`, data);
         updateAttend()
         setIsVisible(true);
         setIsSent(true);

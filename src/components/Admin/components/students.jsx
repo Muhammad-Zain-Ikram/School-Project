@@ -17,7 +17,7 @@ const Students = () => {
       }
 
       const posting = await sendJSONRequest(
-        `${process.env.REACT_APP_PORT}/portal/delete/user`,
+        `${process.env.REACT_APP_BACKEND_URL}/portal/delete/user`,
         {
           id: selectedStudents,
           delete: "student",
@@ -25,7 +25,7 @@ const Students = () => {
       );
       console.log("success: ", posting);
       const response = await sendJSONRequest(
-        `${process.env.REACT_APP_PORT}/api/getStudents`
+        `${process.env.REACT_APP_BACKEND_URL}/api/getStudents`
       );
       setData(response.data);
 
@@ -39,7 +39,7 @@ const Students = () => {
   useEffect(() => {
     const fetchClass = async () => {
       try {
-        const response = await getRequest(`${process.env.REACT_APP_PORT}/api/getClass`);
+        const response = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getClass`);
         setMyClass(response.data);
       } catch (error) {
         console.error("Error fetching class data:", error);
@@ -53,7 +53,7 @@ const Students = () => {
     const fetchData = async () => {
       try {
         const response = await sendJSONRequest(
-          `${process.env.REACT_APP_PORT}/api/getStudents`
+          `${process.env.REACT_APP_BACKEND_URL}/api/getStudents`
         );
         setData(response.data);
       } catch (error) {

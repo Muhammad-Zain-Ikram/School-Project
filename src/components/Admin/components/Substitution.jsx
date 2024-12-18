@@ -20,7 +20,7 @@ const Substitution = () => {
     };
 
     try {
-      const response = await sendJSONRequest( `${process.env.REACT_APP_PORT}/portal/substitute/teacher`, data);
+      const response = await sendJSONRequest( `${process.env.REACT_APP_BACKEND_URL}/portal/substitute/teacher`, data);
       console.log("Response:", response);
       // Handle response (e.g., show success message, update state, etc.)
     } catch (error) {

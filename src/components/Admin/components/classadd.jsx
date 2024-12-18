@@ -15,7 +15,7 @@ const ClassAdd = () => {
     const fetchData = async () => {
       try {
         const teacherResponse = await getRequest(
-          `${process.env.REACT_APP_PORT}/api/getTeacher`
+          `${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`
         );
         setTeacherData(teacherResponse.data);
       } catch (error) {
@@ -41,7 +41,7 @@ const ClassAdd = () => {
 
     try {
       const response = await sendJSONRequest(
-        `${process.env.REACT_APP_PORT}/portal/add/class`,
+        `${process.env.REACT_APP_BACKEND_URL}/portal/add/class`,
         formData
       );
       setRedirect(true);

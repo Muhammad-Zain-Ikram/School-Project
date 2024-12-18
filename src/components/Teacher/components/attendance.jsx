@@ -52,7 +52,7 @@ const StudentAttendance = () => {
     try {
       console.log(issent)
       if(!issent){
-      await sendJSONRequest(`${process.env.REACT_APP_PORT}/portal/mark/attendence`, data);
+      await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/portal/mark/attendence`, data);
       setIsVisible(true);
       updateAttend()
       setIsSent(false);
