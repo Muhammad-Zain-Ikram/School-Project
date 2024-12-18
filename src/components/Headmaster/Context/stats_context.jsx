@@ -9,14 +9,14 @@ const StatsProvider = ({ children }) => {
     const [teacherAttendence, setTeacherAttendence] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const Backend = import.meta.env.VITE_BACKEND_URL;
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getStats`);
+                const response = await getRequest(`${Backend}/api/getStats`);
                 console.log(response.data);
-                const teacherResponse = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`);
-                const teacherAttendenceResponse = await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTodayAttendence`, { type : "Teacher" });
+                const teacherResponse = await getRequest(`${Backend}/api/getTeacher`);
+                const teacherAttendenceResponse = await sendJSONRequest(`${Backend}/api/getTodayAttendence`, { type : "Teacher" });
                 setTeacherList(Object.values(teacherResponse.data).flat());
                 setTeacherAttendence(Object.values(teacherAttendenceResponse.data).flat());
                 setStats(response.data);

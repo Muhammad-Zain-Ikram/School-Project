@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { sendJSONRequest, getRequest } from "../../../utility/sendJson";
 const ClassAdd = () => {
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     label: "Class",
     level: "",
@@ -15,7 +16,7 @@ const ClassAdd = () => {
     const fetchData = async () => {
       try {
         const teacherResponse = await getRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`
+          `${Backend}/api/getTeacher`
         );
         setTeacherData(teacherResponse.data);
       } catch (error) {
@@ -41,7 +42,7 @@ const ClassAdd = () => {
 
     try {
       const response = await sendJSONRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/portal/add/class`,
+        `${Backend}/portal/add/class`,
         formData
       );
       setRedirect(true);

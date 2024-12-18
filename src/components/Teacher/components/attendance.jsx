@@ -7,7 +7,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { SuccessPopup } from '../../../utility/Popups';
 
 const StudentAttendance = () => {
-
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [isVisible, setIsVisible] = useState(false);
   const [issent, setIsSent] = useState(false);
   const { list, attendence, updateGrade, updateAttend , classes   } = useContext(AttendenceContext);
@@ -52,7 +52,7 @@ const StudentAttendance = () => {
     try {
       console.log(issent)
       if(!issent){
-      await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/portal/mark/attendence`, data);
+      await sendJSONRequest(`${Backend}/portal/mark/attendence`, data);
       setIsVisible(true);
       updateAttend()
       setIsSent(false);

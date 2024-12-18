@@ -9,6 +9,7 @@ const AttendenceProvider = ({ children,type}) =>{
     const [grade, setGrade] = useState()
     const [classes, setClasses] = useState([])
     const [loading, setLoading] = useState(true)
+    const Backend = import.meta.env.VITE_BACKEND_URL;
 
     const updateGrade = (newGrade) => {
         setGrade(newGrade);
@@ -17,20 +18,20 @@ const AttendenceProvider = ({ children,type}) =>{
     const fetchData =async()=>{
   try {
           if(type === "Teacher"){
-              let teacherData = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`);
+              let teacherData = await getRequest(`${Backend}/api/getTeacher`);
               teacherData = Object.values(teacherData.data).flat();
-              let attendData = await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTodayAttendence`, {type : type});
+              let attendData = await sendJSONRequest(`${Backend}/api/getTodayAttendence`, {type : type});
               attendData =Object.values(attendData.data).flat()
               processData(teacherData, attendData)
               setLoading(false)
           }
           else if (type === "Student"){
-              let studentData = await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getStudents`, {classes : grade ? grade : ""});
+              let studentData = await sendJSONRequest(`${Backend}/api/getStudents`, {classes : grade ? grade : ""});
               studentData = Object.values(studentData.data).flat();
-              let attendData = await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getTodayAttendence`, {type : type , classes : grade ? grade : ""});
+              let attendData = await sendJSONRequest(`${Backend}/api/getTodayAttendence`, {type : type , classes : grade ? grade : ""});
               attendData =Object.values(attendData.data).flat() 
               processData(studentData, attendData)
-              let gradeData = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getClass`);
+              let gradeData = await getRequest(`${Backend}/api/getClass`);
               gradeData = Object.values(gradeData.data).flat();
               setClasses(gradeData) 
               setLoading(false)

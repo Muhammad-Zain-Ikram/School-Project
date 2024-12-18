@@ -9,7 +9,7 @@ const Addtest = () => {
     teacherId: "",
     classId:""
   });
-  console.log(formData);
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   
   const [redirect, setRedirect] = useState(false);
   const [teacherData, setTeacherData] = useState([]);
@@ -29,7 +29,7 @@ const Addtest = () => {
     const fetchData = async () => {
       try {
         const teacherResponse = await getRequest(
-          "http://localhost:5000/api/getTeacher"
+          `${Backend}/api/getTeacher`
         );
         setTeacherData(teacherResponse.data);
       } catch (error) {
@@ -55,7 +55,7 @@ const Addtest = () => {
 
     try {
       const response = await sendJSONRequest(
-        "http://localhost:5000/portal/create/test",
+        `${Backend}/portal/create/test`,
         formData
       );
       setRedirect(true);

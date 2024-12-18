@@ -2,6 +2,7 @@ import React,{useState,useEffect} from "react";
 import { getRequest, sendJSONRequest } from "../../../utility/sendJson";
 
 const manage = () => {
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [Data, setData] = useState([]);
   const [selectedTeachers, setSelectedTeachers] = useState([]);
   console.log(selectedTeachers);
@@ -11,7 +12,7 @@ const manage = () => {
         const fetchData = async () => {
           try {
             const response = await getRequest(
-              `${process.env.REACT_APP_BACKEND_URL}/api/getTeacher`
+              `${Backend}/api/getTeacher`
             );
             setData(response.data);
           } catch (error) {
@@ -30,7 +31,7 @@ const handleRemoveTeachers = async () => {
       }
 
       const posting = await sendJSONRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/portal/delete/user`,
+        `${Backend}/portal/delete/user`,
         {
           id: selectedTeachers,
           delete: "teacher",

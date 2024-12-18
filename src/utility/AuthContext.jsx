@@ -11,16 +11,16 @@ const AuthProvider = ({ children }) => {
     roles: [],
     loading: true,
   });
-
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   // Fetch auth data when the provider is mounted
   const fetchAuth = useMemo(() => {
     return  async () => {
       try {
-          const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/portal/auth`, {
+          const response = await fetch(`${Backend}/portal/auth`, {
               method: "GET",
               credentials: "include",
           });
-    
+          console.log(response)
           if (response.status === 200) {
               const data = await response.json();
               

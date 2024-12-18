@@ -14,6 +14,7 @@ function GetStarted() {
   const [popupMessage, setPopupMessage] = useState(""); // To control the popup message
   const [showPopup, setShowPopup] = useState(false); // To control visibility of the popup
 
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -52,7 +53,7 @@ function GetStarted() {
     if (!newError.email && !newError.password) {
       try {
         const response = await sendJSONRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/portal/login`,
+          `${Backend}/portal/login`,
           { email, password }
         );
 

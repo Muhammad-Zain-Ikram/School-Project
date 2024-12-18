@@ -7,7 +7,7 @@ const Substitution = () => {
   const { list } = useContext(AttendenceContext);
   const present = list.filter(teacher => teacher.status === "Present");
   const absent = list.filter(teacher => teacher.status === "Absent");
-
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [selectedPresent, setSelectedPresent] = useState('');
   const [selectedAbsent, setSelectedAbsent] = useState('');
 
@@ -20,7 +20,7 @@ const Substitution = () => {
     };
 
     try {
-      const response = await sendJSONRequest( `${process.env.REACT_APP_BACKEND_URL}/portal/substitute/teacher`, data);
+      const response = await sendJSONRequest( `${Backend}/portal/substitute/teacher`, data);
       console.log("Response:", response);
       // Handle response (e.g., show success message, update state, etc.)
     } catch (error) {

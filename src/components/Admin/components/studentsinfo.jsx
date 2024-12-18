@@ -9,11 +9,12 @@ const StudentsInfo = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedClass, setSelectedClass] = useState('');
   const [redirect, setRedirect] = useState(false)
+  const Backend = import.meta.env.VITE_BACKEND_URL;
     // Fetch classes from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getClass`);
+        const response = await getRequest(`${Backend}/api/getClass`);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching class data:", error);
@@ -39,7 +40,7 @@ const StudentsInfo = () => {
     
     try {
       const response = await sendJSONRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/portal/add/user`, 
+        `${Backend}/portal/add/user`, 
         studentData
       );
       setRedirect(true)

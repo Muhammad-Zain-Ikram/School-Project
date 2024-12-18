@@ -10,6 +10,7 @@ const Teacherattend = React.memo(() =>{
   const { list, attendence, updateAttend } = useContext(AttendenceContext);
   const [teacherList,setTeacherList] = useState(list)
   const [AttendenceData,setAttendenceData] = useState(attendence)
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const handleStatus = (attendeId)=>{
     const newTeacher = teacherList.map(data=>{
       if (data.attendeId === attendeId) {
@@ -39,7 +40,7 @@ const Teacherattend = React.memo(() =>{
 
     try {
       if(!issent){
-        await sendJSONRequest(`${process.env.REACT_APP_BACKEND_URL}/portal/mark/attendence`, data);
+        await sendJSONRequest(`${Backend}/portal/mark/attendence`, data);
         updateAttend()
         setIsVisible(true);
         setIsSent(true);

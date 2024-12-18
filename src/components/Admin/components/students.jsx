@@ -8,6 +8,7 @@ const Students = () => {
   const [myclass, setMyClass] = useState([]);
   const [selectedClass, setSelectedClass] = useState("");
   const [selectedStudents, setSelectedStudents] = useState([]);
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   // Post data
   const handleRemoveStudents = async () => {
     try {
@@ -17,7 +18,7 @@ const Students = () => {
       }
 
       const posting = await sendJSONRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/portal/delete/user`,
+        `${Backend}/portal/delete/user`,
         {
           id: selectedStudents,
           delete: "student",
@@ -25,7 +26,7 @@ const Students = () => {
       );
       console.log("success: ", posting);
       const response = await sendJSONRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/api/getStudents`
+        `${Backend}/api/getStudents`
       );
       setData(response.data);
 
@@ -39,7 +40,7 @@ const Students = () => {
   useEffect(() => {
     const fetchClass = async () => {
       try {
-        const response = await getRequest(`${process.env.REACT_APP_BACKEND_URL}/api/getClass`);
+        const response = await getRequest(`${Backend}/api/getClass`);
         setMyClass(response.data);
       } catch (error) {
         console.error("Error fetching class data:", error);
@@ -53,7 +54,7 @@ const Students = () => {
     const fetchData = async () => {
       try {
         const response = await sendJSONRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/api/getStudents`
+          `${Backend}/api/getStudents`
         );
         setData(response.data);
       } catch (error) {
