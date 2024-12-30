@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
     roles: [],
     loading: true,
   });
-  const Backend = import.meta.env.VITE_BACKEND_URL;
+  const Backend = import.meta.env.BACKEND_URL;
   // Fetch auth data when the provider is mounted
   const fetchAuth = useMemo(() => {
     return async () => {

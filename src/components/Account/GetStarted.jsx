@@ -6,7 +6,7 @@ import { AuthContext } from "../../utility/AuthContext";
 import { SuccessPopup, ErrorPopup } from "../../utility/Popups";  // Assuming these are in the same directory or adjusted path
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; 
 function GetStarted() {
-  const Backend = import.meta.env.VITE_BACKEND_URL;
+  const Backend = import.meta.env.BACKEND_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ email: "", password: "" });

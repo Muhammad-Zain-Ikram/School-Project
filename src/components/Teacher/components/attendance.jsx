@@ -5,7 +5,7 @@ import { AttendenceContext } from "../../../utility/AttendenceContext";
 import { SuccessPopup } from "../../../utility/Popups";
 import BackBtn from "../../../utility/backbtn";
 const StudentAttendance = () => {
-  const Backend = import.meta.env.VITE_BACKEND_URL;
+  const Backend = import.meta.env.BACKEND_URL;
   const [isVisible, setIsVisible] = useState(false);
   const [issent, setIsSent] = useState(false);
   const { list, attendence, updateGrade, updateAttend, classes } =

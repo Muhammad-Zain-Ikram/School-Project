@@ -10,7 +10,7 @@ const StatsProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [Date, setDate] = useState("")
-    const Backend = import.meta.env.VITE_BACKEND_URL;
+    const Backend = import.meta.env.BACKEND_URL;
     const fetchStats = async () => {
         try {
             const response = await getRequest(`${Backend}/api/getStats`);

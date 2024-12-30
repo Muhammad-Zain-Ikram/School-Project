@@ -46,7 +46,7 @@ function Footer() {
           </div>
         </div>
       </div>
-      <p className="text-center text-gray-400 mt-4">© 2024 Zain. All rights reserved.</p>
+      <p className="text-center text-gray-400 mt-4">© 2024 ZB Infinity. All rights reserved.</p>
     </footer>
   );
 }

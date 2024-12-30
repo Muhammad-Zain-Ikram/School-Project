@@ -10,7 +10,7 @@ const Teacherattend = React.memo(() => {
   const { list, attendence, updateAttend } = useContext(AttendenceContext);
   const [teacherList, setTeacherList] = useState(list);
   const AttendenceData = attendence;
-  const Backend = import.meta.env.VITE_BACKEND_URL;
+  const Backend = import.meta.env.BACKEND_URL;
   const handleStatus = (attendeId) => {
     const newTeacher = teacherList.map((data) => {
       if (data.attendeId === attendeId) {

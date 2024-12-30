@@ -5,7 +5,7 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { AiFillDelete } from "react-icons/ai";
 
 const Managetest = () => {
-  const Backend = import.meta.env.VITE_BACKEND_URL;
+  const Backend = import.meta.env.BACKEND_URL;
   const [Data, setData] = useState([]);
   const [teacherData, setTeacherData] = useState([]);
   const [classData, setClassData] = useState([]);

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getRequest } from "../../../utility/sendJson";
 import BackBtn from "../../../utility/backbtn";
 const TestResult = () => {
-  const Backend = import.meta.env.VITE_BACKEND_URL;
+  const Backend = import.meta.env.BACKEND_URL;
   const navigate = useNavigate();
   const [classData, setClassData] = useState([]);
 
