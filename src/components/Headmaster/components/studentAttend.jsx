@@ -12,6 +12,7 @@ const StudentAttend = () => {
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const attendance = useContext(AttendenceContext);
   const list = attendance.list;
+  console.log(list)
   const handleChange = (newDate) => {
     const updatedDate =
       newDate === ""
