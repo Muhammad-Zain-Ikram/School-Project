@@ -11,8 +11,8 @@
   ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://your-backend-url.example.com/api/$1"
+      "source": "/(.*)",
+      "destination": "https://school-lms-bc64ec988739.herokuapp.com/$1"
     },
     {
       "source": "/(.*)",
