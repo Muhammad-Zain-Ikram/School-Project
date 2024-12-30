@@ -56,7 +56,7 @@ const AttendenceProvider = ({ children, type }) => {
           let studentData = studentDataResponse
             ? Object.values(studentDataResponse.data).flat()
             : studentDataResponse;
-
+          console.log("Student Data :", studentData)
           let attendDataResponse;
 
           if (date === "")
@@ -102,7 +102,6 @@ const AttendenceProvider = ({ children, type }) => {
           status: check,
         };
       }, []);
-      console.log(data)
       setList(newData);
     }
   };
