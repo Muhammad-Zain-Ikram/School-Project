@@ -123,7 +123,7 @@ const AttendenceProvider = ({ children, type }) => {
       classes,
       updateDate,
     };
-  }, [list, attendence, updateGrade, updateAttend, updateDate, classes]);
+  }, [list, grade ,attendence, updateGrade, updateAttend, updateDate, classes]);
 
   return (
     <AttendenceContext.Provider value={Data}>
