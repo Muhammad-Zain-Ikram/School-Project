@@ -130,7 +130,7 @@ function GetStarted() {
 
         {generalError && <div className="text-red-600 text-center mb-4">{generalError}</div>}
 
-        <form onSubmit={handleForm} className="space-y-6">
+        <form method="post" onSubmit={handleForm} className="space-y-6">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
             <input
