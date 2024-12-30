@@ -6,7 +6,6 @@ import { StatsContext } from "./../Context/stats_context";
 
 const Dashboard = () => {
   const data = useContext(StatsContext);
-  console.log(data)
   let percentage = data.stats.map(
     (item) =>{
       return ((item.totalStudents - item.absentCount) / item.totalStudents) * 100
