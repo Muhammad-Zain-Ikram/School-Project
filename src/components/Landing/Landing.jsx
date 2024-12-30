@@ -13,8 +13,6 @@ import image7 from "../../assets/school/image7.jpg";
 import image5 from "../../assets/school/image5.jpg";
 
 function Landing() {
-  const Backend = import.meta.env.VITE_BACKEND_URL;
-console.log("Backend URL:", Backend);
 
   return (
     <>
