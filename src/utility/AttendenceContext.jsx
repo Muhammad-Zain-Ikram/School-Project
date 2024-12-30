@@ -102,6 +102,7 @@ const AttendenceProvider = ({ children, type }) => {
           status: check,
         };
       }, []);
+      console.log(newData)
       setList(newData);
     }
   };
