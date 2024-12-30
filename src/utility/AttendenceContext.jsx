@@ -48,6 +48,7 @@ const AttendenceProvider = ({ children, type }) => {
               `${Backend}/api/getStudents`,
               { classes: grade ? grade : "" }
             );
+            console.log("Students",studentDataResponse)
           } catch (error) {
             if (error.status !== 403) {
               throw error;
