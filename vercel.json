@@ -11,7 +11,7 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "destination": "https://school-lms-bc64ec988739.herokuapp.com/$1"
     },
     {
