@@ -56,7 +56,6 @@ const AttendenceProvider = ({ children, type }) => {
           let studentData = studentDataResponse
             ? Object.values(studentDataResponse.data).flat()
             : studentDataResponse;
-          console.log("Student Data :", studentData)
           let attendDataResponse;
 
           if (date === "")
@@ -73,7 +72,6 @@ const AttendenceProvider = ({ children, type }) => {
           let attendData;
           if (attendDataResponse.data)
             attendData = Object.values(attendDataResponse.data).flat();
-          console.log("attendence :", attendDataResponse)
           processData(studentData, attendData);
           setLoading(false);
         } catch (error) {
@@ -126,7 +124,6 @@ const AttendenceProvider = ({ children, type }) => {
     };
   }, [list, attendence, updateGrade, updateAttend, updateDate, classes]);
 
-  console.log(Data)
   return (
     <AttendenceContext.Provider value={Data}>
       {!loading ? children : <div>Loading....</div>}
