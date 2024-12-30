@@ -73,7 +73,7 @@ const AttendenceProvider = ({ children, type }) => {
           let attendData;
           if (attendDataResponse.data)
             attendData = Object.values(attendDataResponse.data).flat();
-          console.log("attendence :", attendData)
+          console.log("attendence :", attendDataResponse)
           processData(studentData, attendData);
           setLoading(false);
         } catch (error) {
