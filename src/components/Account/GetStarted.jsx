@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { sendJSONRequest } from "../../utility/sendJson";
 import { AuthContext } from "../../utility/AuthContext";
 import { SuccessPopup, ErrorPopup } from "../../utility/Popups";  // Assuming these are in the same directory or adjusted path
-
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; 
 function GetStarted() {
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ email: "", password: "" });
@@ -13,8 +14,11 @@ function GetStarted() {
   const [isLoading, setIsLoading] = useState(false); // For loading spinner
   const [popupMessage, setPopupMessage] = useState(""); // To control the popup message
   const [showPopup, setShowPopup] = useState(false); // To control visibility of the popup
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
-  const Backend = import.meta.env.VITE_BACKEND_URL;
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
+  };
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -141,18 +145,33 @@ function GetStarted() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={handlePassword}
-              id="password"
-              placeholder="Enter your password"
-              className={`mt-1 block w-full px-4 py-2 border ${error.password ? "border-red-500" : "border-gray-300"} rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
-            />
-            {error.password && <p className="text-red-700 mt-1 text-sm">{error.password}</p>}
-          </div>
-
+      <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        Password
+      </label>
+      <div className="relative">
+        <input
+          type={showPassword ? "text" : "password"} // Toggle between text and password
+          value={password}
+          onChange={handlePassword}
+          id="password"
+          placeholder="Enter your password"
+          className={`mt-1 block w-full px-4 py-2 border ${
+            error.password ? "border-red-500" : "border-gray-300"
+          } rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm`}
+        />
+        <div
+          className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? (
+            <AiOutlineEyeInvisible className="text-gray-500 text-xl" />
+          ) : (
+            <AiOutlineEye className="text-gray-500 text-xl" />
+          )}
+        </div>
+      </div>
+      {error.password && <p className="text-red-700 mt-1 text-sm">{error.password}</p>}
+    </div>
           <div>
             <button
               type="submit"

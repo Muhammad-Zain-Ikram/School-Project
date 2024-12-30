@@ -5,11 +5,10 @@ import { Outlet } from 'react-router-dom';
 function Admin() {
   useEffect(() => {
     const handleResize = () => {
-      const minWidth = 450;
       const main = document.getElementById('main');
       const message = document.getElementById('message');
 
-      if (window.innerWidth < minWidth) {
+      if (window.innerWidth < 450) {
         main.classList.add('hidden');
         message.classList.remove('hidden');
       } else {
@@ -26,23 +25,21 @@ function Admin() {
 
   return (
     <>
-      {/* Show message for small screens */}
+      {/* Message for very small screens (optional) */}
       <div
         id="message"
         className="hidden text-center text-red-500 font-bold text-lg p-4"
       >
-        Open on larger devices
+        Please use a larger screen.
       </div>
 
-      {/* Main layout */}
+      {/* Main Layout */}
       <div id="main" className="flex h-screen">
         {/* Sidebar */}
-        <div className="max-w-[50%] bg-white shadow-lg lg:w-[17%]">
-          <NavBar />
-        </div>
+        <NavBar />
 
         {/* Content Area */}
-        <div className="flex-1 bg-gray-100 p-6 overflow-y-auto">
+        <div className="flex-1 bg-gray-100 px-6 overflow-auto">
           <Outlet />
         </div>
       </div>

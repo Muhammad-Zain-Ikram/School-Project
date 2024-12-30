@@ -1,47 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { sendJSONRequest, getRequest } from "../../../utility/sendJson";
+import { AttendenceContext } from "../../../utility/AttendenceContext";
 const Addtest = () => {
-    const [myclass, setMyClass] = useState([]);
+  const data = useContext(AttendenceContext);
+  const [myclass, setMyClass] = useState(data.classes);
   const [formData, setFormData] = useState({
     label: "",
     total_marks: "",
     teacherId: "",
-    classId:""
+    classId: "",
   });
   const Backend = import.meta.env.VITE_BACKEND_URL;
-  
+
   const [redirect, setRedirect] = useState(false);
-  const [teacherData, setTeacherData] = useState([]);
-  useEffect(() => {
-    const fetchClass = async () => {
-      try {
-        const response = await getRequest("http://localhost:5000/api/getClass");
-        setMyClass(response.data);
-      } catch (error) {
-        console.error("Error fetching class data:", error);
-      }
-    };
-    fetchClass();
-  }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const teacherResponse = await getRequest(
-          `${Backend}/api/getTeacher`
-        );
-        setTeacherData(teacherResponse.data);
-      } catch (error) {
-        console.error("Error fetching class data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  const [teacherData, setTeacherData] = useState(data.list);
   const getTeacherName = (teacherId) => {
-    const teacher = teacherData.find((teacher) => teacher._id === teacherId);
+    const teacher = teacherData.find(
+      (teacher) => teacher.attendeId === teacherId
+    );
     return teacher ? teacher.name : "Unknown";
   };
 
@@ -59,7 +36,6 @@ const Addtest = () => {
         formData
       );
       setRedirect(true);
-      console.log("Create Test Successfully:", response);
     } catch (error) {
       console.error("Error Creating Test:", error);
     }
@@ -133,8 +109,8 @@ const Addtest = () => {
             >
               <option value="">Select Teacher</option>
               {teacherData.map((option) => (
-                <option key={option._id} value={option._id}>
-                  {getTeacherName(option._id)}
+                <option key={option.attendeId} value={option.attendeId}>
+                  {getTeacherName(option.attendeId)}
                 </option>
               ))}
             </select>
@@ -154,12 +130,15 @@ const Addtest = () => {
               onChange={handleChange}
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             >
-                <option value="">All Classes</option>
-            {myclass.map((cls) => (
-              <option key={cls._id} value={cls._id}>
-                {cls.label}
-              </option>
-            ))}
+              <option value="">All Classes</option>
+              {myclass.map((cls) => {
+                if (cls.status === "Active")
+                  return (
+                    <option key={cls._id} value={cls._id}>
+                      {cls.label}
+                    </option>
+                  );
+              })}
             </select>
           </div>
 

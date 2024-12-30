@@ -1,83 +1,78 @@
-import {sendJSONRequest} from "../../../utility/sendJson"
-import React, { useState,useEffect } from "react";
-import { Link,Navigate } from "react-router-dom";
+import { sendJSONRequest } from "../../../utility/sendJson";
+import React, { useState, useEffect } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { ErrorPopup, SuccessPopup } from "../../../utility/Popups";
 
 const AddTeacher = () => {
   const roles = ["Admin", "Teacher", "Principal"];
-  const [success,setSuccess] = useState(false);
-  const [successM,setSuccessM] = useState("");
-  const [error,setError] = useState(false);
-  const [errorM,setErrorM] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [successM, setSuccessM] = useState("");
+  const [error, setError] = useState(false);
+  const [errorM, setErrorM] = useState("");
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState(roles[1]); 
-  const [redirect,setRedirect] = useState(false);
+  const [role, setRole] = useState(roles[1]);
+  const [redirect, setRedirect] = useState(false);
   const Backend = import.meta.env.VITE_BACKEND_URL;
-    function validatePassword(password) {
-      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-      return passwordRegex.test(password);
+  function validatePassword(password) {
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    return passwordRegex.test(password);
+  }
+  useEffect(() => {
+    if (validatePassword(password)) {
+      setError(false);
+      setErrorM("");
     }
-    useEffect(() => {
-      if (validatePassword(password)) {
-        setError(false); 
-        setErrorM("");
-      }
-    }, [password]); 
+  }, [password]);
 
-    const handleSubmit = async (event) => {
-      event.preventDefault(); 
-  
-      if (!validatePassword(password)) {
-        setError(true);
-        setErrorM(
-          "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number."
-        );
-        return;
-      }
-  
-      setError(false); 
-  
-      const formData = {
-        name,
-        email,
-        password,
-        role,
-        add: "teacher",
-      };
-  
-      try {
-        const response = await sendJSONRequest(
-          `${Backend}/portal/add/user`,
-          formData
-        );
-        setSuccessM("Add Teacher Successfully");
-        setSuccess(true);
-        setTimeout(() => {
-          setRedirect(true);
-        }, 3000);
-        console.log("Teacher added successfully:", response);
-      } catch (error) {
-        setError(true);
-        setErrorM("Something went wrong while adding the teacher.");
-        console.error("Error adding teacher:", error);
-      }
-  
-      console.log("Form Data Submitted: ", formData);
-    };
-  
-    if (redirect) {
-      return <Navigate to="/admin/teachers"></Navigate>;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!validatePassword(password)) {
+      setError(true);
+      setErrorM(
+        "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number."
+      );
+      return;
     }
+
+    setError(false);
+
+    const formData = {
+      name,
+      email,
+      password,
+      role,
+      add: "teacher",
+    };
+
+    try {
+      const response = await sendJSONRequest(
+        `${Backend}/portal/add/user`,
+        formData
+      );
+      setSuccessM("Add Teacher Successfully");
+      setSuccess(true);
+      setTimeout(() => {
+        setRedirect(true);
+      }, 3000);
+    } catch (error) {
+      setError(true);
+      setErrorM("Something went wrong while adding the teacher.");
+      console.error("Error adding teacher:", error);
+    }
+  };
+
+  if (redirect) {
+    return <Navigate to="/admin/teachers"></Navigate>;
+  }
   return (
     <div>
-     {success && successM && (
-       <SuccessPopup message={successM} visible={success}/>
+      {success && successM && (
+        <SuccessPopup message={successM} visible={success} />
       )}
-      {error && errorM && (
-        <ErrorPopup message={errorM} visible={error}/>
-      )}
+      {error && errorM && <ErrorPopup message={errorM} visible={error} />}
       <div className="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 flex items-center justify-center py-12 px-6 lg:px-8">
         <div className="max-w-2xl w-full bg-white rounded-xl shadow-xl p-8">
           <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">

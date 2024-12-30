@@ -1,37 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { sendJSONRequest, getRequest } from "../../../utility/sendJson";
+import { AttendenceContext } from "../../../utility/AttendenceContext";
+
 const ClassAdd = () => {
   const Backend = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     label: "Class",
     level: "",
     inchargeId: "",
-    next_class:""
   });
   const [redirect, setRedirect] = useState(false);
-  const [teacherData, setTeacherData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const teacherResponse = await getRequest(
-          `${Backend}/api/getTeacher`
-        );
-        setTeacherData(teacherResponse.data);
-      } catch (error) {
-        console.error("Error fetching class data:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const getInchargeName = (inchargeId) => {
-    const teacher = teacherData.find((teacher) => teacher._id === inchargeId);
-    return teacher ? teacher.name : "Unknown";
-  };
-
+  const { list, classes, updateGrade } = useContext(AttendenceContext);
+  const newList = list.filter((teacher) => {
+    return !classes.some((el) => {
+      return el.incharge === teacher.attendeId;
+    });
+  });
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -41,12 +26,9 @@ const ClassAdd = () => {
     e.preventDefault();
 
     try {
-      const response = await sendJSONRequest(
-        `${Backend}/portal/add/class`,
-        formData
-      );
+      await sendJSONRequest(`${Backend}/portal/add/class`, formData);
+      updateGrade("");
       setRedirect(true);
-      console.log("Student added successfully:", response);
     } catch (error) {
       console.error("Error adding student:", error);
     }
@@ -115,11 +97,12 @@ const ClassAdd = () => {
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">Select Incharge</option>
-              {teacherData.map((option) => (
-                <option key={option._id} value={option._id}>
-                  {getInchargeName(option._id)}
-                </option>
-              ))}
+              {newList &&
+                newList.map((teacher) => (
+                  <option key={teacher.attendeId} value={teacher.attendeId}>
+                    {teacher.name}
+                  </option>
+                ))}
             </select>
           </div>
 

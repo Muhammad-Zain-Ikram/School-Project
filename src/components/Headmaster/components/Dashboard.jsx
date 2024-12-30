@@ -2,133 +2,142 @@ import React, { useContext } from "react";
 import Logo from "../../../assets/logo.png";
 import { Link } from "react-router-dom";
 import test from "../../../assets/school/Test.svg";
-import Clock from "../../../assets/school/Clock.png";
 import { StatsContext } from "./../Context/stats_context";
 
 const Dashboard = () => {
-  const radius = 60;
-  const circumference = 2 * Math.PI * radius;
   const data = useContext(StatsContext);
+ 
   let percentage = data.stats.map(
-    (item) =>
-      ((item.totalStudents - item.absentCount) / item.totalStudents) * 100
-  );
+    (item) =>{
+      return ((item.totalStudents - item.absentCount) / item.totalStudents) * 100
+    }
+  ).filter(value => value !== null && !isNaN(value));
+  let length = percentage.length
   percentage = percentage.reduce((acc, curr) => acc + Number(curr), 0);
-  percentage = percentage / data.stats.length;
+  percentage = percentage / length;
+  console.log(percentage)
   let teacherPercentage =
-    (data.teacherList.length -
-    data.teacherAttendence.length) / data.teacherList.length * 100;
-  const offset = circumference - (teacherPercentage / 100) * circumference;
+    ((data.teacherList.length - data.teacherAttendence.length) /
+      data.teacherList.length) *
+    100;
 
   return (
-    <>
-     <div className="relative flex items-center w-full py-2 bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg justify-between px-4 md:px-9">
-  <div className="flex items-center">
-    <img
-      src={Logo}
-      alt="School Logo"
-      className="w-14 md:w-16 transition-transform duration-300 transform hover:scale-110"
-      aria-label="School Logo"
-    />
-  </div>
-  <div className="absolute inset-0 flex justify-end mx-2 items-center md:justify-center">
-    <p className="text-2xl md:text-3xl font-bold text-white transition-all duration-300">
-      Good Morning
-    </p>
-  </div>
-</div>
+    <div className="min-h-screen bg-gray-50">
+      {/* Enhanced Navigation Bar */}
+      <nav className="flex justify-between items-center px-4 py-3 lg:px-8 bg-gradient-to-r from-blue-600 to-blue-800 text-white shadow-lg">
+        <div className="flex items-center space-x-4">
+          <img
+            src={Logo}
+            alt="logo"
+            className="h-10 md:h-12 lg:h-14 transition-all duration-300"
+          />
+        </div>
+        <p className="text-lg md:text-xl lg:text-2xl font-bold tracking-wider">
+          UHS Teacher
+        </p>
+      </nav>
 
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row justify-center items-center lg:gap-6 mt-8">
-        {/* Left Section */}
-        <div className="flex flex-col items-center">
-          {/* Students Attendance */}
-          <Link to="students">
-            <div className="card cursor-pointer w-[250px] h-[250px] bg-[#54117B] rounded-xl m-5 p-4 shadow-lg hover:shadow-gray-700 shadow-black transition-shadow">
-              <p className="text-lg font-medium text-white text-center mb-4">
+      <div className="lg:h-[80vh] px-4 py-8 flex justify-center items-center ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center">
+          {/* Students Attendance Card */}
+          <Link
+            to="students"
+            className="w-full max-w-sm transform transition-all duration-300 hover:scale-105"
+          >
+            <div className="card h-[300px] bg-gradient-to-br from-purple-700 to-purple-900 rounded-2xl p-6 shadow-xl hover:shadow-2xl">
+              <p className="text-xl font-semibold text-white text-center mb-6">
                 Students Average Attendance
               </p>
-              <div className="relative w-36 h-36 mx-auto">
+              <div className="relative w-40 h-40 mx-auto">
                 <svg className="w-full h-full -rotate-90">
-                  {/* Background Circle */}
                   <circle
-                    cx="72"
-                    cy="72"
-                    r="60"
+                    cx="80"
+                    cy="80"
+                    r="70"
                     fill="none"
-                    stroke="#Ff0000"
-                    strokeWidth="10"
+                    stroke="rgba(255,0,0,0.3)"
+                    strokeWidth="12"
                   />
-                  {/* Progress Circle */}
                   <circle
-                    cx="72"
-                    cy="72"
-                    r="60"
+                    cx="80"
+                    cy="80"
+                    r="70"
                     fill="none"
                     stroke="#00FF00"
-                    strokeWidth="10"
-                    strokeDasharray="377"
-                    strokeDashoffset={377 - (377 * percentage) / 100}
+                    strokeWidth="12"
+                    strokeDasharray="440"
+                    strokeDashoffset={440 - (440 * percentage) / 100}
                     className="transition-all duration-1000 ease-out"
                   />
                 </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center ">
-                  <span className="text-3xl font-bold text-white">
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-4xl font-bold text-white">
                     {Math.round(percentage)}%
                   </span>
                 </div>
               </div>
             </div>
           </Link>
-        </div>
 
-        {/* Vertical Divider */}
-        <div className="h-[80vh] w-[2px] bg-gray-300 hidden lg:block"></div>
-
-        <div className="flex flex-col items-center">
-          {/* Teachers Attendance */}
-          <Link to="teachers">
-          <div className="flex flex-col items-center">
-            <div className="card cursor-pointer w-[250px] h-[250px] bg-[#1E1E1E] rounded-xl m-5 p-4 shadow-lg hover:shadow-gray-700 shadow-black transition-shadow">
-              <p className="text-lg font-medium text-white text-center mb-4">
+          {/* Teachers Attendance Card */}
+          <Link
+            to="teachers"
+            className="w-full max-w-sm transform transition-all duration-300 hover:scale-105"
+          >
+            <div className="card h-[300px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 shadow-xl hover:shadow-2xl">
+              <p className="text-xl font-semibold text-white text-center mb-6">
                 Teacher Average Attendance
               </p>
-              <div className="relative w-36 h-36 mx-auto">
+              <div className="relative w-40 h-40 mx-auto">
                 <svg className="w-full h-full -rotate-90">
-                  {/* Background Circle */}
                   <circle
-                    cx="72"
-                    cy="72"
-                    r="60"
+                    cx="80"
+                    cy="80"
+                    r="70"
                     fill="none"
-                    stroke="#ff0000"
-                    strokeWidth="10"
+                    stroke="rgba(255,0,0,0.3)"
+                    strokeWidth="12"
                   />
-                  {/* Progress Circle */}
                   <circle
-                    cx="72"
-                    cy="72"
-                    r="60"
+                    cx="80"
+                    cy="80"
+                    r="70"
                     fill="none"
                     stroke="#E1FF00"
-                    strokeWidth="10"
-                    strokeDasharray="377"
-                    strokeDashoffset={377 - (377 * teacherPercentage) / 100}
+                    strokeWidth="12"
+                    strokeDasharray="440"
+                    strokeDashoffset={440 - (440 * teacherPercentage) / 100}
                     className="transition-all duration-1000 ease-out"
                   />
                 </svg>
-                <div className="absolute inset-0 flex flex-col items-center justify-center ">
-                  <span className="text-3xl font-bold text-white">
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <span className="text-4xl font-bold text-white">
                     {Math.round(teacherPercentage)}%
                   </span>
                 </div>
               </div>
             </div>
-        </div>
           </Link>
+
+          {/* Test Result Card */}
+          <div className="w-full max-w-sm transform transition-all duration-300 hover:scale-105">
+            <Link to="result">
+              <div className="card h-[300px] bg-gradient-to-br from-blue-900 to-blue-950 rounded-2xl p-6 shadow-xl hover:shadow-2xl flex flex-col justify-center items-center">
+                <p className="text-xl font-semibold text-white text-center mb-6">
+                  Test Result
+                </p>
+                <img
+                  src={test}
+                  alt="Test Result"
+                  className="w-40 h-40 mx-auto object-contain filter drop-shadow-lg"
+                />
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

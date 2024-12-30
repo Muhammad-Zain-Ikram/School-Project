@@ -10,9 +10,9 @@ const PrivateRoute = ({ roles, children }) => {
 
   const authRolesArray = Object.values(auth.roles).flat();
   const rolesArray = Object.values(roles).flat();
-  
-  const isAuthorized = authRolesArray.some(role => rolesArray.includes(role));
-  
+
+  const isAuthorized = authRolesArray.some((role) => rolesArray.includes(role));
+
   if (!isAuthorized) return <Navigate to="/unauthorized" replace />;
 
   return children || <Outlet />;

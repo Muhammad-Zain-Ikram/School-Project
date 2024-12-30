@@ -1,47 +1,44 @@
-import React, {useState, useContext} from 'react';
-import {Attendance} from '../../layoutattendance';
-import { sendJSONRequest} from '../../../utility/sendJson';
-import {AttendenceContext} from '../../../utility/AttendenceContext';
-import { SuccessPopup } from '../../../utility/Popups';
+import React, { useState, useContext } from "react";
+import { Attendance } from "../../layoutattendance";
+import { sendJSONRequest } from "../../../utility/sendJson";
+import { AttendenceContext } from "../../../utility/AttendenceContext";
+import { SuccessPopup } from "../../../utility/Popups";
 
-const Teacherattend = React.memo(() =>{
+const Teacherattend = React.memo(() => {
   const [isVisible, setIsVisible] = useState(false);
   const [issent, setIsSent] = useState(true);
   const { list, attendence, updateAttend } = useContext(AttendenceContext);
-  const [teacherList,setTeacherList] = useState(list)
-  const [AttendenceData,setAttendenceData] = useState(attendence)
+  const [teacherList, setTeacherList] = useState(list);
+  const AttendenceData = attendence;
   const Backend = import.meta.env.VITE_BACKEND_URL;
-  const handleStatus = (attendeId)=>{
-    const newTeacher = teacherList.map(data=>{
+  const handleStatus = (attendeId) => {
+    const newTeacher = teacherList.map((data) => {
       if (data.attendeId === attendeId) {
-          return {...data,
-          name : data.name,
-          attendeId : attendeId , 
-          status : data.status === "Present" ? "Absent" : "Present"
-        }  
-      }
-      else
-      return data
-    })
-    setTeacherList(newTeacher)
-    setIsSent(false)
-  }
+        return {
+          ...data,
+          name: data.name,
+          attendeId: attendeId,
+          status: data.status === "Present" ? "Absent" : "Present",
+        };
+      } else return data;
+    });
+    setTeacherList(newTeacher);
+    setIsSent(false);
+  };
 
   const handleCilck = async () => {
     if (teacherList.length === 0) {
-      console.log("No Teachers to Mark Attendance");
       return;
     }
 
     const data = {
-      teacher : teacherList.map(({name , ...rest})=> rest),
-      attendence : AttendenceData
-    }
-
+      teacher: teacherList.map(({ name, ...rest }) => rest),
+      attendence: AttendenceData,
+    };
     try {
-      if(!issent){
+      if (!issent) {
         await sendJSONRequest(`${Backend}/portal/mark/attendence`, data);
-        updateAttend()
+        await updateAttend();
         setIsVisible(true);
         setIsSent(true);
         setTimeout(() => setIsVisible(false), 3000);
@@ -50,11 +47,18 @@ const Teacherattend = React.memo(() =>{
       console.error("Error:", error);
     }
   };
-  
 
   return (
     <div className="py-6 px-2 lg:px-4 bg-white shadow-md rounded-lg">
-      {list ||list.length !== 0 ? <Attendance name="Teacher Attendance" data={teacherList} onStatusChange={handleStatus}/> : "Loading.."}
+      {list || list.length !== 0 ? (
+        <Attendance
+          name="Teacher Attendance"
+          data={teacherList}
+          onStatusChange={handleStatus}
+        />
+      ) : (
+        "Loading.."
+      )}
       <div className="flex justify-end mt-6">
         <button
           type="submit"
@@ -64,9 +68,12 @@ const Teacherattend = React.memo(() =>{
           Submit
         </button>
       </div>
-      <SuccessPopup message="Attendance Marked Successfully" visible={isVisible} />
+      <SuccessPopup
+        message="Attendance Marked Successfully"
+        visible={isVisible}
+      />
     </div>
   );
-}); 
+});
 
 export default Teacherattend;

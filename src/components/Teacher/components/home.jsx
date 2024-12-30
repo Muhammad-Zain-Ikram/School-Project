@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink,Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import Logo from "../../../assets/logo.png";
 import { FaUserGraduate } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
@@ -8,59 +8,83 @@ import { MdEditNote } from "react-icons/md";
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen">
       {/* Gradient Navbar */}
-      <nav className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-blue-500 to-sky-600 text-white shadow-lg">
+      <nav className="flex justify-between items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-sky-600 text-white shadow-lg">
         <div className="flex items-center space-x-4">
-          <img src={Logo} alt="logo" className="h-14" />
+          <img src={Logo} alt="logo" className=" h-10 md:h-14" />
         </div>
-        <p className="text-2xl font-extrabold tracking-wide">UHS Teacher</p>
+        <p className="text-lg md:text-xl font-bold tracking-wide">
+          UHS Teacher
+        </p>
       </nav>
 
       {/* Main Section */}
-      <div className="grid grid-cols-2 gap-4 p-4 sm:gap-6 sm:p-8 md:p-12 h-[80vh]">
+      <div className="flex flex-wrap justify-between gap-4 p-4 sm:p-6 md:p-8">
+        {/* Row 1 */}
         <NavLink
           to="/teachers/attendance"
-          className="p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-lg hover:scale-105 transition-transform"
+          className="w-[45%] p-8 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
-          <span className="text-sky-600 text-7xl pb-3">
+          <span className="text-sky-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <FaUserGraduate />
           </span>
-          <p className="text-sky-600 font-semibold text-2xl">Students</p>
+          <p className="text-sky-600 font-semibold text-xl lg:text-3xl md:text-2xl">
+            Students
+          </p>
         </NavLink>
 
-        {/* Teachers Box */}
         <Link
-          to="attendance"
-          className="p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-lg hover:scale-105 transition-transform"
+          to="your"
+          className="w-[45%] p-8 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
-          <span className="text-7xl text-orange-600 pb-3">
+          <span className="text-orange-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <SlCalender />
           </span>
-          <p className="font-semibold text-2xl text-orange-600">Attendence</p>
+          <p className="font-semibold text-xl lg:text-3xl md:text-2xl text-orange-600">
+            Attendance
+          </p>
         </Link>
 
-        {/* Enter Marks Box
+        {/* Row 2 */}
         <NavLink
-          to="/teacher/marks"
-          className="p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-lg hover:scale-105 transition-transform"
+          to="view-test"
+          className="w-[45%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
-          <span className="text-7xl text-emerald-600 pb-3">
-            <MdEditNote/>
+          <span className="text-emerald-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
+            <MdEditNote />
           </span>
-          <p className=" text-emerald-600 font-semibold text-2xl">Enter Marks</p>
+          <p className="text-emerald-600 font-semibold text-lg lg:text-3xl md:text-2xl">
+            Enter Marks
+          </p>
         </NavLink>
 
-        {/* View Marks Box */}
-        {/* <NavLink
-          to="/teacher/view-marks"
-          className="p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-lg hover:scale-105 transition-transform"
+        <NavLink
+          to="all-test"
+          className="w-[45%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
-          <span className="text-7xl text-rose-700 pb-3">
+          <span className="text-rose-700 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <AiOutlineEye />
           </span>
-          <p className="font-semibold text-2xl text-rose-700">View Marks</p>
-        </NavLink> */}
+          <p className="font-semibold text-lg lg:text-3xl md:text-2xl text-rose-700 ">
+            View Marks
+          </p>
+        </NavLink>
+
+        {/* Full-Width Box */}
+      </div>
+      <div className="flex justify-center items-center mb-3">
+        <NavLink
+          to="students"
+          className="w-[45%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+        >
+          <span className="text-blue-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
+            <AiOutlineEye />
+          </span>
+          <p className="font-semibold text-xl lg:text-3xl md:text-2xl text-blue-600">
+            View Attendance
+          </p>
+        </NavLink>
       </div>
     </div>
   );

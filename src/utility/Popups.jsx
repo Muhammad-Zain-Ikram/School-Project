@@ -8,7 +8,7 @@ const SuccessPopup = ({ message, visible }) => {
     if (visible) {
       const timer = setTimeout(() => {
         setIsVisible(false);
-      }, 3000); 
+      }, 3000);
       return () => clearTimeout(timer);
     }
   }, [visible]);
@@ -68,8 +68,8 @@ const ErrorPopup = ({ message, visible }) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <circle cx={10} cy={10} r={10} fill="#ffffff" />
-                <path d="M5 5L15 15" stroke="red" stroke-width="2" />
-                <path d="M15 5L5 15" stroke="red" stroke-width="2" />
+                <path d="M5 5L15 15" stroke="red" strokeWidth="2" />
+                <path d="M15 5L5 15" stroke="red" strokeWidth="2" />
               </svg>
             </span>
             {message}
