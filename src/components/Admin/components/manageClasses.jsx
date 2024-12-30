@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState,  useContext } from "react";
 import { sendJSONRequest } from "../../../utility/sendJson";
 import { AttendenceContext } from "../../../utility/AttendenceContext";
 import { TfiReload } from "react-icons/tfi";
@@ -12,7 +12,7 @@ const View = () => {
   const [selectedClass, setSelectedClass] = useState("");
   const [toClassId, setToClassId] = useState("");
   const [Teacher, setTeacher] = useState("");
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const { list } = useContext(AttendenceContext);
 
   data.sort((a, b) => a.level - b.level);

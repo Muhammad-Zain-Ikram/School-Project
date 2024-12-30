@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { sendJSONRequest } from "../../../utility/sendJson";
 import BackBtn from "../../../utility/backbtn";
 const Viewmarks = () => {
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [Data, setData] = useState([]);
   const [SData, setSData] = useState([]);
   const location = useLocation();

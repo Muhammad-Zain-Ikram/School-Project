@@ -4,7 +4,7 @@ import { sendJSONRequest } from "../../../utility/sendJson";
 import BackBtn from "../../../utility/backbtn";
 
 function Ownattend() {
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const currentDate = new Date();
   const [Data, setData] = useState();
   const currentYear = currentDate.getFullYear();

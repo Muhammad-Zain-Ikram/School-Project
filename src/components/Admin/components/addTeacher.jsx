@@ -14,7 +14,7 @@ const AddTeacher = () => {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState(roles[1]);
   const [redirect, setRedirect] = useState(false);
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   function validatePassword(password) {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     return passwordRegex.test(password);

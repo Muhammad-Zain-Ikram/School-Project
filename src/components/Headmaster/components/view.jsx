@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { getRequest } from "../../../utility/sendJson";
 import BackBtn from "../../../utility/backbtn";
 const View = () => {
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const [Data, setData] = useState([]);
   const [classData, setClassData] = useState([]);

@@ -9,7 +9,7 @@ const StudentsInfo = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
   const [redirect, setRedirect] = useState(false);
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   // Fetch classes from the API
   useEffect(() => {
     const fetchData = async () => {

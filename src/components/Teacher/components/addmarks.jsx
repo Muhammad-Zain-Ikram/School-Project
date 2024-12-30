@@ -5,7 +5,7 @@ import { sendJSONRequest } from "../../../utility/sendJson";
 import BackBtn from "../../../utility/backbtn";
 import Redirect from "../../../utility/redirect";
 const Addmarks = () => {
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [Data, setData] = useState([]);
   const [redirect, setRedirect] = useState(false);
   const [marks, setMarks] = useState({});

@@ -1,10 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState,  useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { sendJSONRequest } from "../../../utility/sendJson";
+import { sendJSONRequest,  } from "../../../utility/sendJson";
 import { AttendenceContext } from "../../../utility/AttendenceContext";
 
 const ClassAdd = () => {
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [formData, setFormData] = useState({
     label: "Class",
     level: "",

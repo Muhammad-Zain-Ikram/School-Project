@@ -4,7 +4,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 
 const Manage = () => {
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [Data, setData] = useState([]);
   const [CTeacher, setCTeacher] = useState("");
   const [newPass, setNewPass] = useState("");

@@ -7,7 +7,7 @@ const Substitution = () => {
   const { list } = useContext(AttendenceContext);
   const present = list.filter((teacher) => teacher.status === "Present");
   const absent = list.filter((teacher) => teacher.status === "Absent");
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
   const [selectedPresent, setSelectedPresent] = useState("");
   const [selectedAbsent, setSelectedAbsent] = useState("");
 

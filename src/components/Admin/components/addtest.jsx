@@ -11,7 +11,7 @@ const Addtest = () => {
     teacherId: "",
     classId: "",
   });
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
 
   const [redirect, setRedirect] = useState(false);
   const [teacherData, setTeacherData] = useState(data.list);

@@ -10,7 +10,7 @@ const AttendenceProvider = ({ children, type }) => {
   const [classes, setClasses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [date, setDate] = useState("");
-  const Backend = import.meta.env.BACKEND_URL;
+  const Backend = import.meta.env.VITE_BACKEND_URL;
 
   const updateGrade = (newGrade) => {
     setGrade(newGrade);
