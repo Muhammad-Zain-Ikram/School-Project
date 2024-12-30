@@ -69,6 +69,7 @@ const AttendenceProvider = ({ children, type }) => {
               { type: "Student", classes: grade ? grade : "", date: date }
             );
           }
+          console.log("Attendence:", attendDataResponse)
           let attendData;
           if (attendDataResponse.data)
             attendData = Object.values(attendDataResponse.data).flat();
