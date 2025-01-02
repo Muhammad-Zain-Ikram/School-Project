@@ -29,7 +29,7 @@ const Substitution = () => {
     <div className="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 flex items-center justify-center py-12 px-6 lg:px-8">
       <div className="max-w-2xl w-full bg-white rounded-xl shadow-xl p-8">
         <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">
-          Add New Student
+          Substitute Teacher
         </h3>
 
         {present && absent ? (

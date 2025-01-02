@@ -20,7 +20,7 @@ const Home = () => {
       </nav>
 
       {/* Main Section */}
-      <div className="flex flex-wrap justify-between gap-4 p-4 sm:p-6 md:p-8">
+      <div className="flex flex-wrap justify-between items-center gap-4 p-4 sm:p-6 md:p-8">
         {/* Row 1 */}
         <NavLink
           to="/teachers/attendance"

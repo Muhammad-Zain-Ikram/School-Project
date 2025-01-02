@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import "./index.css";
 import Get from "./components/Account/GetStarted.jsx";
 import Admin from "./components/Admin/Admin.jsx";
@@ -43,133 +43,106 @@ import ViewMarks from "./components/Headmaster/components/viewmarks.jsx";
 import ViewHeadmaster from "./components/Headmaster/components/view.jsx";
 import StudentAttend from "./components/Headmaster/components/studentAttend.jsx";
 import Session from "./components/Admin/components/Session.jsx";
+import { Analytics } from '@vercel/analytics/react';
+
+const ProtectedLayout = () => {
+  return (
+    <AuthProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Outlet />
+      </LocalizationProvider>
+    </AuthProvider>
+  );
+};
+
 const router = createBrowserRouter([
   // Public Routes
   { path: "/", element: <App /> },
   { path: "/login", element: <Get /> },
-
-  // Headmaster Routes
-  {
-    path: "/headmaster",
-    element: (
-      <PrivateRoute roles={["Principal"]}>
-        <StatsProvider>
-        <AttendenceProvider type="Student">
-        <Headmaster />
-        </AttendenceProvider>
-        </StatsProvider>
-      </PrivateRoute>
-    ),
-    children: [
-      {
-        path: "",
-        element: (
-            <Dashboard />
-        ),
-      },
-      {
-        path: "students",
-        element: (
-            <ClassesLists />
-        ),
-      },
-      {
-        path: "teachers",
-        element: (
-            <TeacherList/>
-        ),
-      },
-      {
-        path: "result",
-        element: (
-            <TestResult/>
-        ),
-      },
-      {
-        path: "view",
-        element: (
-            <ViewHeadmaster/>
-        ),
-      },
-      {
-        path: "view-marks",
-        element: (
-            <ViewMarks/>
-        ),
-      },
-      {
-        path: "studentAttendance",
-        element: (
-            <StudentAttend/>
-        ),
-      },
-    ],
-  },
-
-  // Admin Routes
-  {
-    path: "/admin",
-    element: (
-      <PrivateRoute roles={["Admin"]}>
-        <AttendenceProvider type="Teacher">
-        <Admin />
-        </AttendenceProvider>
-      </PrivateRoute>
-     
-    ),
-    children: [
-    { path: "", element: <Teachersattend />}, 
-    { path: "teachers", element:<AdminTeachers/> },
-    { path: "session", element:<Session/> },
-    { path: "students", element:<Allstudent /> },
-    { path: "students/add", element: <Addstudent /> },
-    { path: "teachers/add", element: <Addteacher />},
-    { path: "class", element:<Class />},
-    { path: "class/manage", element:<View /> },
-    { path: "class/add", element:<Classadd /> },
-    { path: "teachers/substitution", element:<Substitution /> },
-    { path: "teachers/manage", element:<Manage /> },
-    { path: "students/manage", element:<Students /> },
-    { path: "test", element:<Test />},
-    { path: "test/add-test", element:<Addtest />},
-    { path: "test/manage", element:<Managetest />},
-    ],
-  },
-
-  // Teacher Routes
-  {
-    path: "/teachers",
-    element: (
-      <PrivateRoute roles={["Teacher"]}>
-        <AttendenceProvider type="Student">
-        <Teachers />
-        </AttendenceProvider>
-      </PrivateRoute>
-    ),
-    children: [
-      { path: "",element: <Home  />,},
-      {path: "attendance",element: <Attendance />,},
-      {path: "your", element: <Ownattend/>},
-      {path: "students", element: <ViewStudentattendance/>},
-
-      {path: "add-marks",element: <Addmarks />,},
-      {path: "view-test",element: <Viewtest />,},
-
-      {path: "all-test",element: <Alltest/>},
-      {path: "view-marks",element: <Viewmarks />,},
-    ],
-  },
-
-  // Unauthorized Route
   { path: "/unauthorized", element: <div>Unauthorized Access</div> },
+
+  // Protected Routes Wrapper
+  {
+    element: <ProtectedLayout />,
+    children: [
+      // Headmaster Routes
+      {
+        path: "/headmaster",
+        element: (
+          <PrivateRoute roles={["Principal"]}>
+            <StatsProvider>
+              <AttendenceProvider type="Student">
+                <Headmaster />
+              </AttendenceProvider>
+            </StatsProvider>
+          </PrivateRoute>
+        ),
+        children: [
+          { path: "", element: <Dashboard /> },
+          { path: "students", element: <ClassesLists /> },
+          { path: "teachers", element: <TeacherList /> },
+          { path: "result", element: <TestResult /> },
+          { path: "view", element: <ViewHeadmaster /> },
+          { path: "view-marks", element: <ViewMarks /> },
+          { path: "studentAttendance", element: <StudentAttend /> }
+        ]
+      },
+      // Admin Routes
+      {
+        path: "/admin",
+        element: (
+          <PrivateRoute roles={["Admin"]}>
+            <AttendenceProvider type="Teacher">
+              <Admin />
+            </AttendenceProvider>
+          </PrivateRoute>
+        ),
+        children: [
+          { path: "", element: <Teachersattend /> },
+          { path: "teachers", element: <AdminTeachers /> },
+          { path: "session", element: <Session /> },
+          { path: "students", element: <Allstudent /> },
+          { path: "students/add", element: <Addstudent /> },
+          { path: "teachers/add", element: <Addteacher /> },
+          { path: "class", element: <Class /> },
+          { path: "class/manage", element: <View /> },
+          { path: "class/add", element: <Classadd /> },
+          { path: "teachers/substitution", element: <Substitution /> },
+          { path: "teachers/manage", element: <Manage /> },
+          { path: "students/manage", element: <Students /> },
+          { path: "test", element: <Test /> },
+          { path: "test/add-test", element: <Addtest /> },
+          { path: "test/manage", element: <Managetest /> }
+        ]
+      },
+      // Teacher Routes
+      {
+        path: "/teachers",
+        element: (
+          <PrivateRoute roles={["Teacher"]}>
+            <AttendenceProvider type="Student">
+              <Teachers />
+            </AttendenceProvider>
+          </PrivateRoute>
+        ),
+        children: [
+          { path: "", element: <Home /> },
+          { path: "attendance", element: <Attendance /> },
+          { path: "your", element: <Ownattend /> },
+          { path: "students", element: <ViewStudentattendance /> },
+          { path: "add-marks", element: <Addmarks /> },
+          { path: "view-test", element: <Viewtest /> },
+          { path: "all-test", element: <Alltest /> },
+          { path: "view-marks", element: <Viewmarks /> }
+        ]
+      }
+    ]
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
-    </LocalizationProvider>
+    <RouterProvider router={router} />
+    <Analytics />
   </StrictMode>
 );

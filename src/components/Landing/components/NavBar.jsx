@@ -66,7 +66,7 @@ function NavBar({ logo }) {
           </button>
         </div>
         <ul className="flex flex-col items-center gap-6 pt-8 font-semibold capitalize text-main text-lg">
-          {["home", "facilities", "profiles", "events", "gallery"].map(
+          {["home", "facilities", "events", "gallery"].map(
             (item) => (
               <li key={item} onClick={closeMobileNav}>
                 <a
