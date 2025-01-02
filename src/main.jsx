@@ -44,133 +44,134 @@ import ViewHeadmaster from "./components/Headmaster/components/view.jsx";
 import StudentAttend from "./components/Headmaster/components/studentAttend.jsx";
 import Session from "./components/Admin/components/Session.jsx";
 import { Analytics } from '@vercel/analytics/react';
-
-const ProtectedContent = ({ children }) => {
-  return (
-    <AuthProvider>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        {children}
-      </LocalizationProvider>
-    </AuthProvider>
-  );
-};
-
 const router = createBrowserRouter([
-  // Public Routes - No Auth
+  // Public Routes
   { path: "/", element: <App /> },
-  {
-    path: "/login",
-    element: (
-      <ProtectedContent>
-        <Get />
-      </ProtectedContent>
-    ),
-  },
-  { path: "/unauthorized", element: <div>Unauthorized Access</div> },
+  { path: "/login", element: <Get /> },
 
-  // Protected Routes - Wrapped with Auth
+  // Headmaster Routes
   {
     path: "/headmaster",
     element: (
-      <ProtectedContent>
-        <PrivateRoute roles={["Principal"]}>
-          <StatsProvider>
-            <AttendenceProvider type="Student">
-              <Headmaster />
-            </AttendenceProvider>
-          </StatsProvider>
-        </PrivateRoute>
-      </ProtectedContent>
+      <PrivateRoute roles={["Principal"]}>
+        <StatsProvider>
+        <AttendenceProvider type="Student">
+        <Headmaster />
+        </AttendenceProvider>
+        </StatsProvider>
+      </PrivateRoute>
     ),
     children: [
       {
         path: "",
-        element: <Dashboard />,
+        element: (
+            <Dashboard />
+        ),
       },
       {
         path: "students",
-        element: <ClassesLists />,
+        element: (
+            <ClassesLists />
+        ),
       },
       {
         path: "teachers",
-        element: <TeacherList />,
+        element: (
+            <TeacherList/>
+        ),
       },
       {
         path: "result",
-        element: <TestResult />,
+        element: (
+            <TestResult/>
+        ),
       },
       {
         path: "view",
-        element: <ViewHeadmaster />,
+        element: (
+            <ViewHeadmaster/>
+        ),
       },
       {
         path: "view-marks",
-        element: <ViewMarks />,
+        element: (
+            <ViewMarks/>
+        ),
       },
       {
         path: "studentAttendance",
-        element: <StudentAttend />,
+        element: (
+            <StudentAttend/>
+        ),
       },
     ],
   },
+
+  // Admin Routes
   {
     path: "/admin",
     element: (
-      <ProtectedContent>
-        <PrivateRoute roles={["Admin"]}>
-          <AttendenceProvider type="Teacher">
-            <Admin />
-          </AttendenceProvider>
-        </PrivateRoute>
-      </ProtectedContent>
+      <PrivateRoute roles={["Admin"]}>
+        <AttendenceProvider type="Teacher">
+        <Admin />
+        </AttendenceProvider>
+      </PrivateRoute>
+     
     ),
     children: [
-      { path: "", element: <Teachersattend /> },
-      { path: "teachers", element: <AdminTeachers /> },
-      { path: "session", element: <Session /> },
-      { path: "students", element: <Allstudent /> },
-      { path: "students/add", element: <Addstudent /> },
-      { path: "teachers/add", element: <Addteacher /> },
-      { path: "class", element: <Class /> },
-      { path: "class/manage", element: <View /> },
-      { path: "class/add", element: <Classadd /> },
-      { path: "teachers/substitution", element: <Substitution /> },
-      { path: "teachers/manage", element: <Manage /> },
-      { path: "students/manage", element: <Students /> },
-      { path: "test", element: <Test /> },
-      { path: "test/add-test", element: <Addtest /> },
-      { path: "test/manage", element: <Managetest /> },
+    { path: "", element: <Teachersattend />}, 
+    { path: "teachers", element:<AdminTeachers/> },
+    { path: "session", element:<Session/> },
+    { path: "students", element:<Allstudent /> },
+    { path: "students/add", element: <Addstudent /> },
+    { path: "teachers/add", element: <Addteacher />},
+    { path: "class", element:<Class />},
+    { path: "class/manage", element:<View /> },
+    { path: "class/add", element:<Classadd /> },
+    { path: "teachers/substitution", element:<Substitution /> },
+    { path: "teachers/manage", element:<Manage /> },
+    { path: "students/manage", element:<Students /> },
+    { path: "test", element:<Test />},
+    { path: "test/add-test", element:<Addtest />},
+    { path: "test/manage", element:<Managetest />},
     ],
   },
+
+  // Teacher Routes
   {
     path: "/teachers",
     element: (
-      <ProtectedContent>
-        <PrivateRoute roles={["Teacher"]}>
-          <AttendenceProvider type="Student">
-            <Teachers />
-          </AttendenceProvider>
-        </PrivateRoute>
-      </ProtectedContent>
+      <PrivateRoute roles={["Teacher"]}>
+        <AttendenceProvider type="Student">
+        <Teachers />
+        </AttendenceProvider>
+      </PrivateRoute>
     ),
     children: [
-      { path: "", element: <Home /> },
-      { path: "attendance", element: <Attendance /> },
-      { path: "your", element: <Ownattend /> },
-      { path: "students", element: <ViewStudentattendance /> },
+      { path: "",element: <Home  />,},
+      {path: "attendance",element: <Attendance />,},
+      {path: "your", element: <Ownattend/>},
+      {path: "students", element: <ViewStudentattendance/>},
 
-      { path: "add-marks", element: <Addmarks /> },
-      { path: "view-test", element: <Viewtest /> },
+      {path: "add-marks",element: <Addmarks />,},
+      {path: "view-test",element: <Viewtest />,},
 
-      { path: "all-test", element: <Alltest /> },
-      { path: "view-marks", element: <Viewmarks /> },
+      {path: "all-test",element: <Alltest/>},
+      {path: "view-marks",element: <Viewmarks />,},
     ],
   },
+
+  // Unauthorized Route
+  { path: "/unauthorized", element: <div>Unauthorized Access</div> },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
-    <Analytics />
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <AuthProvider>
+      <RouterProvider router={router} />
+      <Analytics />
+    </AuthProvider>
+    </LocalizationProvider>
   </StrictMode>
 );
