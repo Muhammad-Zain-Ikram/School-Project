@@ -45,6 +45,10 @@ import StudentAttend from "./components/Headmaster/components/studentAttend.jsx"
 import Session from "./components/Admin/components/Session.jsx";
 import { Analytics } from '@vercel/analytics/react';
 
+const PublicLayout = () => {
+  return <Outlet />;
+};
+
 const ProtectedLayout = () => {
   return (
     <AuthProvider>
@@ -56,18 +60,20 @@ const ProtectedLayout = () => {
 };
 
 const router = createBrowserRouter([
-  // Public Routes
-  { path: "/", element: <App /> },
-  { path: "/login", element: <Get /> },
-  { path: "/unauthorized", element: <div>Unauthorized Access</div> },
-
-  // Protected Routes Wrapper
+  {
+    element: <PublicLayout />,
+    children: [
+      { path: "/", element: <App /> },
+      { path: "/login", element: <Get /> },
+      { path: "/unauthorized", element: <div>Unauthorized Access</div> }
+    ]
+  },
   {
     element: <ProtectedLayout />,
     children: [
       // Headmaster Routes
       {
-        path: "/headmaster",
+        path: "/headmaster/*",
         element: (
           <PrivateRoute roles={["Principal"]}>
             <StatsProvider>
@@ -89,7 +95,7 @@ const router = createBrowserRouter([
       },
       // Admin Routes
       {
-        path: "/admin",
+        path: "/admin/*",
         element: (
           <PrivateRoute roles={["Admin"]}>
             <AttendenceProvider type="Teacher">
@@ -117,7 +123,7 @@ const router = createBrowserRouter([
       },
       // Teacher Routes
       {
-        path: "/teachers",
+        path: "/teachers/*",
         element: (
           <PrivateRoute roles={["Teacher"]}>
             <AttendenceProvider type="Student">
