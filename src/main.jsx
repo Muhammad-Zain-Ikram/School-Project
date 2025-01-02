@@ -44,22 +44,36 @@ import ViewHeadmaster from "./components/Headmaster/components/view.jsx";
 import StudentAttend from "./components/Headmaster/components/studentAttend.jsx";
 import Session from "./components/Admin/components/Session.jsx";
 import { Analytics } from '@vercel/analytics/react';
+
+const ProtectedContent = ({ children }) => {
+  return (
+    <AuthProvider>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        {children}
+      </LocalizationProvider>
+    </AuthProvider>
+  );
+};
+
 const router = createBrowserRouter([
-  // Public Routes
+  // Public Routes - No Auth
   { path: "/", element: <App /> },
   { path: "/login", element: <Get /> },
+  { path: "/unauthorized", element: <div>Unauthorized Access</div> },
 
-  // Headmaster Routes
+  // Protected Routes - Wrapped with Auth
   {
     path: "/headmaster",
     element: (
-      <PrivateRoute roles={["Principal"]}>
-        <StatsProvider>
-        <AttendenceProvider type="Student">
-        <Headmaster />
-        </AttendenceProvider>
-        </StatsProvider>
-      </PrivateRoute>
+      <ProtectedContent>
+        <PrivateRoute roles={["Principal"]}>
+          <StatsProvider>
+            <AttendenceProvider type="Student">
+              <Headmaster />
+            </AttendenceProvider>
+          </StatsProvider>
+        </PrivateRoute>
+      </ProtectedContent>
     ),
     children: [
       {
@@ -106,17 +120,16 @@ const router = createBrowserRouter([
       },
     ],
   },
-
-  // Admin Routes
   {
     path: "/admin",
     element: (
-      <PrivateRoute roles={["Admin"]}>
-        <AttendenceProvider type="Teacher">
-        <Admin />
-        </AttendenceProvider>
-      </PrivateRoute>
-     
+      <ProtectedContent>
+        <PrivateRoute roles={["Admin"]}>
+          <AttendenceProvider type="Teacher">
+            <Admin />
+          </AttendenceProvider>
+        </PrivateRoute>
+      </ProtectedContent>
     ),
     children: [
     { path: "", element: <Teachersattend />}, 
@@ -136,16 +149,16 @@ const router = createBrowserRouter([
     { path: "test/manage", element:<Managetest />},
     ],
   },
-
-  // Teacher Routes
   {
     path: "/teachers",
     element: (
-      <PrivateRoute roles={["Teacher"]}>
-        <AttendenceProvider type="Student">
-        <Teachers />
-        </AttendenceProvider>
-      </PrivateRoute>
+      <ProtectedContent>
+        <PrivateRoute roles={["Teacher"]}>
+          <AttendenceProvider type="Student">
+            <Teachers />
+          </AttendenceProvider>
+        </PrivateRoute>
+      </ProtectedContent>
     ),
     children: [
       { path: "",element: <Home  />,},
@@ -159,19 +172,12 @@ const router = createBrowserRouter([
       {path: "all-test",element: <Alltest/>},
       {path: "view-marks",element: <Viewmarks />,},
     ],
-  },
-
-  // Unauthorized Route
-  { path: "/unauthorized", element: <div>Unauthorized Access</div> },
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-    <AuthProvider>
-      <RouterProvider router={router} />
-      <Analytics />
-    </AuthProvider>
-    </LocalizationProvider>
+    <RouterProvider router={router} />
+    <Analytics />
   </StrictMode>
 );
