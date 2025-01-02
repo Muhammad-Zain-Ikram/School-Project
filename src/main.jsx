@@ -58,7 +58,14 @@ const ProtectedContent = ({ children }) => {
 const router = createBrowserRouter([
   // Public Routes - No Auth
   { path: "/", element: <App /> },
-  { path: "/login", element: <Get /> },
+  {
+    path: "/login",
+    element: (
+      <ProtectedContent>
+        <Get />
+      </ProtectedContent>
+    ),
+  },
   { path: "/unauthorized", element: <div>Unauthorized Access</div> },
 
   // Protected Routes - Wrapped with Auth
@@ -78,45 +85,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: (
-            <Dashboard />
-        ),
+        element: <Dashboard />,
       },
       {
         path: "students",
-        element: (
-            <ClassesLists />
-        ),
+        element: <ClassesLists />,
       },
       {
         path: "teachers",
-        element: (
-            <TeacherList/>
-        ),
+        element: <TeacherList />,
       },
       {
         path: "result",
-        element: (
-            <TestResult/>
-        ),
+        element: <TestResult />,
       },
       {
         path: "view",
-        element: (
-            <ViewHeadmaster/>
-        ),
+        element: <ViewHeadmaster />,
       },
       {
         path: "view-marks",
-        element: (
-            <ViewMarks/>
-        ),
+        element: <ViewMarks />,
       },
       {
         path: "studentAttendance",
-        element: (
-            <StudentAttend/>
-        ),
+        element: <StudentAttend />,
       },
     ],
   },
@@ -132,21 +125,21 @@ const router = createBrowserRouter([
       </ProtectedContent>
     ),
     children: [
-    { path: "", element: <Teachersattend />}, 
-    { path: "teachers", element:<AdminTeachers/> },
-    { path: "session", element:<Session/> },
-    { path: "students", element:<Allstudent /> },
-    { path: "students/add", element: <Addstudent /> },
-    { path: "teachers/add", element: <Addteacher />},
-    { path: "class", element:<Class />},
-    { path: "class/manage", element:<View /> },
-    { path: "class/add", element:<Classadd /> },
-    { path: "teachers/substitution", element:<Substitution /> },
-    { path: "teachers/manage", element:<Manage /> },
-    { path: "students/manage", element:<Students /> },
-    { path: "test", element:<Test />},
-    { path: "test/add-test", element:<Addtest />},
-    { path: "test/manage", element:<Managetest />},
+      { path: "", element: <Teachersattend /> },
+      { path: "teachers", element: <AdminTeachers /> },
+      { path: "session", element: <Session /> },
+      { path: "students", element: <Allstudent /> },
+      { path: "students/add", element: <Addstudent /> },
+      { path: "teachers/add", element: <Addteacher /> },
+      { path: "class", element: <Class /> },
+      { path: "class/manage", element: <View /> },
+      { path: "class/add", element: <Classadd /> },
+      { path: "teachers/substitution", element: <Substitution /> },
+      { path: "teachers/manage", element: <Manage /> },
+      { path: "students/manage", element: <Students /> },
+      { path: "test", element: <Test /> },
+      { path: "test/add-test", element: <Addtest /> },
+      { path: "test/manage", element: <Managetest /> },
     ],
   },
   {
@@ -161,18 +154,18 @@ const router = createBrowserRouter([
       </ProtectedContent>
     ),
     children: [
-      { path: "",element: <Home  />,},
-      {path: "attendance",element: <Attendance />,},
-      {path: "your", element: <Ownattend/>},
-      {path: "students", element: <ViewStudentattendance/>},
+      { path: "", element: <Home /> },
+      { path: "attendance", element: <Attendance /> },
+      { path: "your", element: <Ownattend /> },
+      { path: "students", element: <ViewStudentattendance /> },
 
-      {path: "add-marks",element: <Addmarks />,},
-      {path: "view-test",element: <Viewtest />,},
+      { path: "add-marks", element: <Addmarks /> },
+      { path: "view-test", element: <Viewtest /> },
 
-      {path: "all-test",element: <Alltest/>},
-      {path: "view-marks",element: <Viewmarks />,},
+      { path: "all-test", element: <Alltest /> },
+      { path: "view-marks", element: <Viewmarks /> },
     ],
-  }
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
