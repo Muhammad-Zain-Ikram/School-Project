@@ -48,6 +48,8 @@ const Substitution = () => {
                 onChange={(e) => setSelectedPresent(e.target.value)}
                 className="mt-2 block w-full rounded-lg border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-base p-3 bg-white"
               >
+                                <option value="">Select Absent Teacher</option>
+
                 {present.map((pre) => (
                   <option key={pre.attendeId} value={pre.attendeId}>
                     {pre.name}
