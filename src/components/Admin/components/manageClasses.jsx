@@ -183,7 +183,209 @@ const View = () => {
             </tbody>
           </table>
         </div>
-        {/* Modals for Change Incharge, Activate Class, and Remove Class */}
+        <div
+          id="level"
+          className="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50"
+        >
+          <div className="bg-white p-6 rounded-md shadow-lg w-80">
+            <h2 className="text-xl font-bold mb-4">Change Incharge</h2>
+            <div className="my-3">
+              <label htmlFor="f" className="mt-2 text-sm  text-gray-800">
+                Select Grade
+              </label>
+              <select
+                value={toClassId}
+                id="f"
+                onChange={(e) => onSelect(e.target.value)}
+                className="w-full p-2 border border-gray-300 px-2 rounded-lg bg-slate-100"
+              >
+                <option value="" disabled>
+                  Select an Grade
+                </option>
+                {data.map((cls) => {
+                  if (cls.status === "Active")
+                    return (
+                      <option
+                        key={cls._id}
+                        value={cls._id}
+                        className=" rounded-xl mx-4 hover:bg-transparent bg-slate-100 "
+                      >
+                        {cls.label}
+                      </option>
+                    );
+                })}
+              </select>
+            </div>
+            <div className="my-4">
+              <label htmlFor="f" className=" text-sm mb-1 text-gray-800">
+                Select Teacher
+              </label>
+              <select
+                value={Teacher}
+                id="f"
+                onChange={(e) => onSelectT(e.target.value)}
+                className="w-full p-2 border border-gray-300 px-2 rounded-lg bg-slate-100"
+              >
+                <option value="" disabled>
+                  Select a Teacher
+                </option>
+                {list.map((cls) => {
+                  if (!data.some((el) => el.incharge === cls.attendeId))
+                    return (
+                      <option
+                        key={cls.attendeId}
+                        value={cls.attendeId}
+                        className=" rounded-xl mx-4 hover:bg-transparent bg-slate-100 "
+                      >
+                        {cls.name}
+                      </option>
+                    );
+                })}
+              </select>
+            </div>
+            <div className="flex justify-end gap-4 mt-6">
+              <button
+                onClick={onClose}
+                className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={sumbit}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="Active"
+          className="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50"
+        >
+          <div className="bg-white p-6 rounded-md shadow-lg w-80">
+            <h2 className="text-xl font-bold mb-4">Activate Class</h2>
+            <div className="my-3">
+              <label htmlFor="active" className="mt-2 text-sm  text-gray-800">
+                Select Grade
+              </label>
+              <select
+                value={activeGrade}
+                id="active"
+                onChange={(e) => onSelectActiveS(e.target.value)}
+                className="w-full p-2 border border-gray-300 px-2 rounded-lg bg-slate-100"
+              >
+                <option value="" disabled>
+                  Select an Grade
+                </option>
+                {data.map((cls) => {
+                  if (cls.status === "Inactive")
+                    return (
+                      <option
+                        key={cls._id}
+                        value={cls._id}
+                        className=" rounded-xl mx-4 hover:bg-transparent bg-slate-100 "
+                      >
+                        {cls.label}
+                      </option>
+                    );
+                })}
+              </select>
+            </div>
+            <div className="my-4">
+              <label htmlFor="inch" className=" text-sm mb-1 text-gray-800">
+                Select Incharge
+              </label>
+              <select
+                value={Incharge}
+                id="inch"
+                onChange={(e) => onSelectActive(e.target.value)}
+                className="w-full p-2 border border-gray-300 px-2 rounded-lg bg-slate-100"
+              >
+                <option value="" disabled>
+                  Select a Incharge
+                </option>
+                {list.map((cls) => {
+                  if (!data.some((el) => el.incharge === cls.attendeId))
+                    return (
+                      <option
+                        key={cls.attendeId}
+                        value={cls.attendeId}
+                        className=" rounded-xl mx-4 hover:bg-transparent bg-slate-100 "
+                      >
+                        {cls.name}
+                      </option>
+                    );
+                })}
+              </select>
+            </div>
+            <div className="flex justify-end gap-4 mt-6">
+              <button
+                onClick={onCloseActive}
+                className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={Active}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          id="level1"
+          className="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50"
+        >
+          <div className="bg-white p-6 rounded-md shadow-lg w-80">
+            <h2 className="text-xl font-bold mb-4">Remove Class</h2>
+            <div className="my-3">
+              <label htmlFor="R" className="mt-2 text-sm  text-gray-800">
+                Select Grade
+              </label>
+              <select
+                value={selectedClass}
+                id="R"
+                onChange={(e) => onSelectS(e.target.value)}
+                className="w-full p-2 border border-gray-300 px-2 rounded-lg bg-slate-100"
+              >
+                <option value="" disabled>
+                  Select an Grade
+                </option>
+                {data.map((cls) => {
+                  if (cls.status === "Active")
+                    return (
+                      <option
+                        key={cls._id}
+                        value={cls._id}
+                        className=" rounded-xl mx-4 hover:bg-transparent bg-slate-100 "
+                      >
+                        {cls.label}
+                      </option>
+                    );
+                })}
+              </select>
+            </div>
+            <div className="flex justify-end gap-4 mt-6">
+              <button
+                onClick={onCloseS}
+                className="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={sumbitS}
+                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
