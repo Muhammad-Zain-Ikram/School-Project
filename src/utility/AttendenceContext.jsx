@@ -48,7 +48,6 @@ const AttendenceProvider = ({ children, type }) => {
               `${Backend}/api/getStudents`,
               { classes: grade ? grade : "" }
             );
-            console.log("Students",studentDataResponse)
           } catch (error) {
             if (error.status !== 403) {
               throw error;
@@ -70,7 +69,7 @@ const AttendenceProvider = ({ children, type }) => {
               { type: "Student", classes: grade ? grade : "", date: date }
             );
           }
-          console.log("Attendence:", attendDataResponse.data)
+          
           let attendData;
           if (attendDataResponse.data)
             attendData = Object.values(attendDataResponse.data).flat();
@@ -103,7 +102,6 @@ const AttendenceProvider = ({ children, type }) => {
           status: check,
         };
       }, []);
-      console.log(data)
       setList(newData);
     }
   };
