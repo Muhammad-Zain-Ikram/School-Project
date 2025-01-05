@@ -3,6 +3,8 @@ import { getRequest, sendJSONRequest } from "../../../utility/sendJson";
 import { TbXboxX } from "react-icons/tb";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { AiFillDelete } from "react-icons/ai";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Managetest = () => {
   const Backend = import.meta.env.VITE_BACKEND_URL;
@@ -94,6 +96,7 @@ const Managetest = () => {
   };
   return (
     <div className="p-4">
+      <ToastContainer />
       <div className="flex justify-between items-center mb-6 flex-col md:flex-row">
         <h2 className="text-2xl font-bold mb-4 text-center">All Tests</h2>
         <button

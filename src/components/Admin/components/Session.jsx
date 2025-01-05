@@ -1,6 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import {sendJSONRequest} from "../../../utility/sendJson"
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Session = () => {
   const [pass, setPass] = useState("");
   const [label, setLabel] = useState("");
@@ -65,6 +68,7 @@ const Session = () => {
 
   return (
     <>
+    <ToastContainer />
       <div className="min-h-screen flex items-center justify-center p-6">
         <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-8">
           <h2 className="text-3xl font-extrabold text-blue-800 mb-8 text-center">

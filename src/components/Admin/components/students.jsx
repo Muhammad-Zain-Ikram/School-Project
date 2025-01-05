@@ -3,6 +3,8 @@ import { IoFilterSharp } from "react-icons/io5";
 import { getRequest, sendJSONRequest } from "../../../utility/sendJson";
 import { MdDelete } from "react-icons/md";
 import { TbArrowsExchange } from "react-icons/tb";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Students = () => {
   const [Data, setData] = useState([]);
@@ -123,6 +125,7 @@ const Students = () => {
 
   return (
     <div className="p-6">
+      <ToastContainer />
       <div className="flex justify-between items-center mb-6 flex-col md:flex-row">
         <h2 className="text-3xl font-bold">Students List</h2>
 

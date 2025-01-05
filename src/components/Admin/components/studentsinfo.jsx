@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { sendJSONRequest, getRequest } from "../../../utility/sendJson"; // Assuming this function handles POST requests.
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const StudentsInfo = () => {
   const [data, setData] = useState([]);
@@ -51,6 +53,7 @@ const StudentsInfo = () => {
   }
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 flex items-center justify-center py-12 px-6 lg:px-8">
+      <ToastContainer />
       <div className="max-w-2xl w-full bg-white rounded-xl shadow-xl p-8">
         <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">
           Add New Student

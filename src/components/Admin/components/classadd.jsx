@@ -2,6 +2,8 @@ import React, { useState,  useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { sendJSONRequest,  } from "../../../utility/sendJson";
 import { AttendenceContext } from "../../../utility/AttendenceContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ClassAdd = () => {
   const Backend = import.meta.env.VITE_BACKEND_URL;
@@ -24,13 +26,32 @@ const ClassAdd = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       await sendJSONRequest(`${Backend}/portal/add/class`, formData);
-      updateGrade("");
-      setRedirect(true);
+  
+      toast.success("Class added successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+  
+      updateGrade(""); 
+      setRedirect(true); 
     } catch (error) {
-      console.error("Error adding student:", error);
+      console.error("Error adding class:", error);
+  
+      toast.error("Error adding class. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
   if (redirect) {
@@ -38,6 +59,7 @@ const ClassAdd = () => {
   }
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <ToastContainer />
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
           Add Class

@@ -2,13 +2,11 @@ import { sendJSONRequest } from "../../../utility/sendJson";
 import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { ErrorPopup, SuccessPopup } from "../../../utility/Popups";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddTeacher = () => {
   const roles = ["Admin", "Teacher", "Principal"];
-  const [success, setSuccess] = useState(false);
-  const [successM, setSuccessM] = useState("");
-  const [error, setError] = useState(false);
-  const [errorM, setErrorM] = useState("");
   const [name, setname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -28,17 +26,15 @@ const AddTeacher = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     if (!validatePassword(password)) {
-      setError(true);
-      setErrorM(
-        "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number."
+      toast.error(
+        "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number.",
+        { position: "top-right" }
       );
       return;
     }
-
-    setError(false);
-
+  
     const formData = {
       name,
       email,
@@ -46,20 +42,17 @@ const AddTeacher = () => {
       role,
       add: "teacher",
     };
-
+  
     try {
-      const response = await sendJSONRequest(
-        `${Backend}/portal/add/user`,
-        formData
-      );
-      setSuccessM("Add Teacher Successfully");
-      setSuccess(true);
+      await sendJSONRequest(`${Backend}/portal/add/user`, formData);
+      toast.success("Teacher added successfully!", { position: "top-right" });
       setTimeout(() => {
         setRedirect(true);
       }, 3000);
     } catch (error) {
-      setError(true);
-      setErrorM("Something went wrong while adding the teacher.");
+      toast.error("Something went wrong while adding the teacher.", {
+        position: "top-right",
+      });
       console.error("Error adding teacher:", error);
     }
   };
@@ -69,10 +62,7 @@ const AddTeacher = () => {
   }
   return (
     <div>
-      {success && successM && (
-        <SuccessPopup message={successM} visible={success} />
-      )}
-      {error && errorM && <ErrorPopup message={errorM} visible={error} />}
+      <ToastContainer />
       <div className="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 flex items-center justify-center py-12 px-6 lg:px-8">
         <div className="max-w-2xl w-full bg-white rounded-xl shadow-xl p-8">
           <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">

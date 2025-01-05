@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { getRequest, sendJSONRequest } from "../../../utility/sendJson";
-import { MdDeleteOutline } from "react-icons/md";
-import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import { MdDeleteOutline, MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Manage = () => {
   const Backend = import.meta.env.VITE_BACKEND_URL;
@@ -9,52 +10,20 @@ const Manage = () => {
   const [CTeacher, setCTeacher] = useState("");
   const [newPass, setNewPass] = useState("");
   const [selectedTeachers, setSelectedTeachers] = useState([]);
-  const onSelect = (val) => {
-    setCTeacher(val);
-  };
-  const handleChange = (e) => {
-    setNewPass(e.target.value);
-  };
-  const onClose = () => {
-    document.getElementById("changePassword").style.display = "none";
-  };
-  const open = () => {
-    document.getElementById("changePassword").style.display = "flex";
-  };
 
-  // Fetch Teacher Data
   const fetchData = async () => {
     try {
       const response = await getRequest(`${Backend}/api/getTeacher`);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching Teacher data:", error);
+      toast.error("Failed to load teacher data. Please try again.");
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
-
-  // Remove Teachers
-  const handleRemoveTeachers = async () => {
-    try {
-      if (selectedTeachers.length === 0) {
-        console.error("No Teachers selected for removal.");
-        return;
-      }
-      await sendJSONRequest(`${Backend}/portal/delete/user`, {
-        id: selectedTeachers,
-        delete: "teacher",
-      });
-
-      setData((prev) =>
-        prev.filter((el) => !selectedTeachers.includes(el._id))
-      );
-      setSelectedTeachers([]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleCheckboxChange = (id) => {
     setSelectedTeachers((prevSelected) =>
@@ -63,30 +32,61 @@ const Manage = () => {
         : [...prevSelected, id]
     );
   };
-  const sumbit = async () => {
-    try {
-      if (CTeacher == "" || newPass == "") {
-        alert("Please select at least Fill All detail.");
-      }
 
+  const handleRemoveTeachers = async () => {
+    if (selectedTeachers.length === 0) {
+      toast.warn("No teachers selected for removal.");
+      return;
+    }
+    try {
+      await sendJSONRequest(`${Backend}/portal/delete/user`, {
+        id: selectedTeachers,
+        delete: "teacher",
+      });
+      setData((prev) => prev.filter((el) => !selectedTeachers.includes(el._id)));
+      setSelectedTeachers([]);
+      toast.success("Selected teachers removed successfully.");
+    } catch (error) {
+      console.error("Error removing teachers:", error);
+      toast.error("Failed to remove selected teachers. Please try again.");
+    }
+  };
+
+  const sumbit = async () => {
+    if (!CTeacher || !newPass) {
+      toast.warn("Please fill out all fields before submitting.");
+      return;
+    }
+
+    try {
       await sendJSONRequest(`${Backend}/portal/change/password`, {
         id: CTeacher,
         password: newPass,
       });
+      toast.success("Password updated successfully.");
       fetchData();
       setCTeacher("");
       setNewPass("");
+      onClose();
     } catch (error) {
-      console.error("Error Transferring students:", error);
+      console.error("Error changing password:", error);
+      toast.error("Failed to update password. Please try again.");
     }
-    onClose();
+  };
+
+  const onClose = () => {
+    document.getElementById("changePassword").style.display = "none";
+  };
+
+  const open = () => {
+    document.getElementById("changePassword").style.display = "flex";
   };
 
   return (
     <div className="p-4">
+      <ToastContainer />
       <div className="flex justify-between items-center md:mx-8 mb-8 flex-col mx-2 md:flex-row">
         <h2 className="text-2xl font-bold">Teachers List</h2>
-
         <div className="flex justify-center items-center w-full mt-3 md:mt-0 md:w-auto flex-col md:flex-row gap-5">
           <button
             onClick={open}
@@ -105,7 +105,7 @@ const Manage = () => {
 
       <div className="flex justify-center">
         <div className="overflow-x-auto w-full max-w-4xl shadow-lg shadow-black">
-          <table className="min-w-full table-auto border-collapse rounded-lg overflow-hidden  border border-white ">
+          <table className="min-w-full table-auto border-collapse rounded-lg overflow-hidden border border-white">
             <thead className="bg-blue-500 text-white">
               <tr>
                 <th className="px-4 py-2 text-center">Select</th>
@@ -118,7 +118,7 @@ const Manage = () => {
               {Data.map((teacher) => (
                 <tr
                   key={teacher._id}
-                  className={`bg-white hover:bg-blue-100 transition`}
+                  className="bg-white hover:bg-blue-100 transition"
                 >
                   <td className="px-4 py-2 text-center">
                     <input
@@ -144,26 +144,21 @@ const Manage = () => {
       >
         <div className="bg-white p-6 rounded-md shadow-lg w-80">
           <h2 className="text-xl font-bold mb-4">Change Password</h2>
-
           <div className="my-4">
-            <label htmlFor="tId" className=" text-sm mb-1 text-gray-800">
+            <label htmlFor="tId" className="text-sm mb-1 text-gray-800">
               Select Teacher
             </label>
             <select
               value={CTeacher}
               id="tId"
-              onChange={(e) => onSelect(e.target.value)}
+              onChange={(e) => setCTeacher(e.target.value)}
               className="w-full p-2 border border-gray-300 px-2 rounded-lg bg-slate-100"
             >
               <option value="" disabled>
                 Select a Teacher
               </option>
               {Data.map((Teacher) => (
-                <option
-                  key={Teacher._id}
-                  value={Teacher._id}
-                  className=" rounded-xl mx-4 hover:bg-transparent bg-slate-100 "
-                >
+                <option key={Teacher._id} value={Teacher._id}>
                   {Teacher.name}
                 </option>
               ))}
@@ -177,12 +172,11 @@ const Manage = () => {
               type="text"
               id="pass"
               value={newPass}
-              onChange={handleChange}
+              onChange={(e) => setNewPass(e.target.value)}
               placeholder="Enter New Password"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
           </div>
-
           <div className="flex justify-end gap-4 mt-6">
             <button
               onClick={onClose}

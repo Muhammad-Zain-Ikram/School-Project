@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState,  useContext } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { sendJSONRequest, getRequest } from "../../../utility/sendJson";
+import { sendJSONRequest } from "../../../utility/sendJson";
 import { AttendenceContext } from "../../../utility/AttendenceContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Addtest = () => {
   const data = useContext(AttendenceContext);
   const [myclass, setMyClass] = useState(data.classes);
@@ -29,15 +32,26 @@ const Addtest = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
       const response = await sendJSONRequest(
         `${Backend}/portal/create/test`,
         formData
       );
-      setRedirect(true);
+  
+      toast.success("Test created successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+  
+      setTimeout(() => setRedirect(true), 3000);
     } catch (error) {
       console.error("Error Creating Test:", error);
+  
+      toast.error("Error creating test. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
   if (redirect) {
@@ -51,6 +65,7 @@ const Addtest = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <ToastContainer />
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-gray-800 text-center">
           Add New Test

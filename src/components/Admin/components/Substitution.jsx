@@ -3,6 +3,9 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { sendJSONRequest } from "../../../utility/sendJson";
 import { AttendenceContext } from "../../../utility/AttendenceContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Substitution = () => {
   const { list } = useContext(AttendenceContext);
   const present = list.filter((teacher) => teacher.status === "Present");
@@ -27,6 +30,7 @@ const Substitution = () => {
   };
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 flex items-center justify-center py-12 px-6 lg:px-8">
+      <ToastContainer />
       <div className="max-w-2xl w-full bg-white rounded-xl shadow-xl p-8">
         <h3 className="text-2xl font-bold text-gray-800 mb-8 text-center">
           Substitute Teacher
