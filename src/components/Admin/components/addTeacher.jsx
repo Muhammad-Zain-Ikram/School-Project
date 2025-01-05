@@ -17,12 +17,6 @@ const AddTeacher = () => {
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     return passwordRegex.test(password);
   }
-  useEffect(() => {
-    if (validatePassword(password)) {
-      setError(false);
-      setErrorM("");
-    }
-  }, [password]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
