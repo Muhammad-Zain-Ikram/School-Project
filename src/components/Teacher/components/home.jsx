@@ -18,7 +18,7 @@ const Home = () => {
           UHS Teacher
         </p>
       </nav>
-<div className="max-w-screen-lg mx-auto min-h-screen flex flex-wrap justify-center md:justify-between items-center">
+<div className="max-w-screen-lg mx-auto min-h-[calc(100vh-6rem)] flex flex-wrap justify-center md:justify-between items-center">
       {/* Main Section */}
       <div className="flex flex-wrap justify-center md:justify-between items-center gap-4 p-4 sm:p-6 md:p-8 ">        {/* Row 1 */}
         <NavLink
