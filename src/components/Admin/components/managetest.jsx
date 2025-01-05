@@ -13,59 +13,74 @@ const Managetest = () => {
   const [classData, setClassData] = useState([]);
   const [selectedTest, setSelectedTest] = useState([]);
 
-  //get test
+  // Fetch tests
   const fetchData = async () => {
     try {
       const response = await getRequest(`${Backend}/api/getTests`);
       setData(response.data);
+      toast.success("Tests fetched successfully!",{position:"top-center",
+        autoClose:3000});
     } catch (error) {
-      console.error("Error fetching Teacher data:", error);
+      console.error("Error fetching tests:", error);
+      toast.error("Failed to fetch tests.");
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  //get teacher
+  // Fetch teacher data
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTeachers = async () => {
       try {
         const teacherResponse = await getRequest(`${Backend}/api/getTeacher`);
         setTeacherData(teacherResponse.data);
+        toast.success("Teachers data loaded!",{position:"top-center",
+          autoClose:3000});
       } catch (error) {
-        console.error("Error fetching class data:", error);
+        console.error("Error fetching teacher data:", error);
+        toast.error("Failed to fetch teacher data.",{position:"top-center",
+          autoClose:3000});
       }
     };
-    fetchData();
+    fetchTeachers();
   }, []);
 
-  //get class
+  // Fetch class data
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchClasses = async () => {
       try {
-        const teacherResponse = await getRequest(`${Backend}/api/getclass`);
-        setClassData(teacherResponse.data);
+        const classResponse = await getRequest(`${Backend}/api/getclass`);
+        setClassData(classResponse.data);
+        toast.success("Classes data loaded!",{position:"top-center",
+          autoClose:3000});
       } catch (error) {
         console.error("Error fetching class data:", error);
+        toast.error("Failed to fetch class data.",{position:"top-center",
+          autoClose:3000});
       }
     };
-    fetchData();
+    fetchClasses();
   }, []);
 
-  // take teacher name
+  // Get teacher name by ID
   const getInchargeName = (inchargeId) => {
     const teacher = teacherData.find((teacher) => teacher._id === inchargeId);
     return teacher ? teacher.name : "Unknown";
   };
 
-  //take class anme
+  // Get class name by ID
   const getClassName = (cls) => {
     const classname = classData.find((cla) => cla._id === cls);
     return classname ? classname.label : "Unknown";
   };
 
+  // Handle test selection
   const handleCheckboxChange = (test) => {
     if (test.status !== "Not Marked") {
+      toast.warn("Only unmarked tests can be selected.",{position:"top-center",
+        autoClose:3000});
       return;
     }
     setSelectedTest((prevSelected) => {
@@ -78,20 +93,27 @@ const Managetest = () => {
       }
     });
   };
+
+  // Handle test removal
   const handleRemoveTest = async () => {
     try {
       if (selectedTest.length === 0) {
-        alert("Please select at least one Unmarked test to remove.");
+        toast.warn("Please select at least one unmarked test to remove.",{position:"top-center",
+          autoClose:3000});
+        return;
       }
-      const testIds = selectedTest.map((el) => {
-        return el.id;
-      });
+      const testIds = selectedTest.map((el) => el.id);
       await sendJSONRequest(`${Backend}/portal/delete/test`, {
         test_Ids: testIds,
       });
+      toast.success("Selected tests removed successfully!",{position:"top-center",
+        autoClose:3000});
       fetchData();
+      setSelectedTest([]);
     } catch (error) {
-      console.error("Error in Remove test", error);
+      console.error("Error removing tests:", error);
+      toast.error("Failed to remove selected tests.",{position:"top-center",
+        autoClose:3000});
     }
   };
   return (

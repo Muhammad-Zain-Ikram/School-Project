@@ -17,6 +17,11 @@ const Substitution = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!selectedPresent || !selectedAbsent) {
+      toast.error("Please select both a present and an absent teacher.");
+      return;
+    }
+
     const data = {
       presentId: selectedPresent,
       absentId: selectedAbsent,
@@ -24,10 +29,15 @@ const Substitution = () => {
 
     try {
       await sendJSONRequest(`${Backend}/portal/substitute/teacher`, data);
+      toast.success("Substitution successfully recorded!");
+      setSelectedPresent("");
+      setSelectedAbsent("");
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Failed to record substitution. Please try again.");
     }
   };
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 flex items-center justify-center py-12 px-6 lg:px-8">
       <ToastContainer />

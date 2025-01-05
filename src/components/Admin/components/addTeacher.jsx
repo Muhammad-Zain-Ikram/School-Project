@@ -13,16 +13,7 @@ const AddTeacher = () => {
   const [role, setRole] = useState(roles[1]);
   const [redirect, setRedirect] = useState(false);
   const Backend = import.meta.env.VITE_BACKEND_URL;
-  function validatePassword(password) {
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-    return passwordRegex.test(password);
-  }
-  useEffect(() => {
-    if (validatePassword(password)) {
-      setError(false);
-      setErrorM("");
-    }
-  }, [password]);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,7 +21,8 @@ const AddTeacher = () => {
     if (!validatePassword(password)) {
       toast.error(
         "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, and one number.",
-        { position: "top-right" }
+        {position:"top-center",
+          autoClose:3000}
       );
       return;
     }
@@ -45,14 +37,14 @@ const AddTeacher = () => {
   
     try {
       await sendJSONRequest(`${Backend}/portal/add/user`, formData);
-      toast.success("Teacher added successfully!", { position: "top-right" });
+      toast.success("Teacher added successfully!",{position:"top-center",
+        autoClose:3000});
       setTimeout(() => {
         setRedirect(true);
       }, 3000);
     } catch (error) {
-      toast.error("Something went wrong while adding the teacher.", {
-        position: "top-right",
-      });
+      toast.error("Something went wrong while adding the teacher.",{position:"top-center",
+        autoClose:3000});
       console.error("Error adding teacher:", error);
     }
   };

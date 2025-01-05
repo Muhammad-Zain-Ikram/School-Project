@@ -17,7 +17,8 @@ const Manage = () => {
       setData(response.data);
     } catch (error) {
       console.error("Error fetching Teacher data:", error);
-      toast.error("Failed to load teacher data. Please try again.");
+      toast.error("Failed to load teacher data. Please try again.",{position:"top-center",
+        autoClose:3000});
     }
   };
 
@@ -35,7 +36,8 @@ const Manage = () => {
 
   const handleRemoveTeachers = async () => {
     if (selectedTeachers.length === 0) {
-      toast.warn("No teachers selected for removal.");
+      toast.warn("No teachers selected for removal.",{position:"top-center",
+        autoClose:3000});
       return;
     }
     try {
@@ -45,16 +47,19 @@ const Manage = () => {
       });
       setData((prev) => prev.filter((el) => !selectedTeachers.includes(el._id)));
       setSelectedTeachers([]);
-      toast.success("Selected teachers removed successfully.");
+      toast.success("Selected teachers removed successfully.",{position:"top-center",
+        autoClose:3000});
     } catch (error) {
       console.error("Error removing teachers:", error);
-      toast.error("Failed to remove selected teachers. Please try again.");
+      toast.error("Failed to remove selected teachers. Please try again.",{position:"top-center",
+        autoClose:3000});
     }
   };
 
   const sumbit = async () => {
     if (!CTeacher || !newPass) {
-      toast.warn("Please fill out all fields before submitting.");
+      toast.warn("Please fill out all fields before submitting.",{position:"top-center",
+        autoClose:3000});
       return;
     }
 
@@ -63,14 +68,16 @@ const Manage = () => {
         id: CTeacher,
         password: newPass,
       });
-      toast.success("Password updated successfully.");
+      toast.success("Password updated successfully.",{position:"top-center",
+        autoClose:3000});
       fetchData();
       setCTeacher("");
       setNewPass("");
       onClose();
     } catch (error) {
       console.error("Error changing password:", error);
-      toast.error("Failed to update password. Please try again.");
+      toast.error("Failed to update password. Please try again.",{position:"top-center",
+        autoClose:3000});
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { sendJSONRequest, getRequest } from "../../../utility/sendJson"; // Assuming this function handles POST requests.
+import { sendJSONRequest, getRequest } from "../../../utility/sendJson";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -12,19 +12,22 @@ const StudentsInfo = () => {
   const [selectedClass, setSelectedClass] = useState("");
   const [redirect, setRedirect] = useState(false);
   const Backend = import.meta.env.VITE_BACKEND_URL;
-  // Fetch classes from the API
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await getRequest(`${Backend}/api/getClass`);
         setData(response.data);
       } catch (error) {
+        toast.error("Error fetching class data.",{position:"top-center",
+          autoClose:3000});
         console.error("Error fetching class data:", error);
       }
     };
 
     fetchData();
   }, []);
+
   const studentData = {
     name,
     fatherName,
@@ -33,23 +36,29 @@ const StudentsInfo = () => {
     add: "student",
   };
 
-  // Submit handler
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!name || !fatherName || !phoneNumber || !selectedClass) {
+      toast.error("All fields are required!",{position:"top-center",
+        autoClose:3000});
+      return;
+    }
 
     try {
-      await sendJSONRequest(
-        `${Backend}/portal/add/user`,
-        studentData
-      );
+      await sendJSONRequest(`${Backend}/portal/add/user`, studentData);
+      toast.success("Student added successfully!",{position:"top-center",
+        autoClose:3000});
       setRedirect(true);
     } catch (error) {
+      toast.error("Error adding student. Please try again.",{position:"top-center",
+        autoClose:3000});
       console.error("Error adding student:", error);
     }
   };
+
   if (redirect) {
-    return <Navigate to="/admin/students"></Navigate>;
+    return <Navigate to="/admin/students" />;
   }
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-50 via-gray-100 to-blue-50 flex items-center justify-center py-12 px-6 lg:px-8">

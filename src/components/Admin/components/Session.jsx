@@ -1,6 +1,5 @@
-import React from "react";
-import { useState } from "react";
-import {sendJSONRequest} from "../../../utility/sendJson"
+import React, { useState } from "react";
+import { sendJSONRequest } from "../../../utility/sendJson";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -21,7 +20,8 @@ const Session = () => {
     if (id === "Password") close("new");
     if (id === "info") {
       if (!pass.trim()) {
-        alert("Password is required!");
+        toast.error("Password is required!",{position:"top-center",
+          autoClose:3000});
         close("Password");
         return;
       }
@@ -42,13 +42,17 @@ const Session = () => {
     setLabel(e.target.value);
   };
 
-  const sumbit = async() => {
+  const sumbit = async () => {
     if (!label.trim()) {
       setError("Session name is required!");
+      toast.error("Session name is required!",{position:"top-center",
+        autoClose:3000});
       return;
     }
     if (!selectedYear) {
       setError("You must select a year!");
+      toast.error("You must select a year!",{position:"top-center",
+        autoClose:3000});
       return;
     }
 
@@ -58,17 +62,20 @@ const Session = () => {
       year: selectedYear,
     };
     try {
-      await sendJSONRequest(`${Backend}/portal/start/session`,sessionDetails)
+      await sendJSONRequest(`${Backend}/portal/start/session`, sessionDetails);
       close("info");
+      toast.success("New session started successfully!",{position:"top-center",
+        autoClose:3000});
     } catch (e) {
-      console.log(e) 
+      console.error(e);
+      toast.error("Failed to start the session. Please try again.",{position:"top-center",
+        autoClose:3000});
     }
-
   };
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <div className="min-h-screen flex items-center justify-center p-6">
         <div className="w-full max-w-md bg-white rounded-xl shadow-2xl p-8">
           <h2 className="text-3xl font-extrabold text-blue-800 mb-8 text-center">
@@ -176,7 +183,9 @@ const Session = () => {
           className="hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50"
         >
           <div className="bg-white p-6 rounded-md shadow-lg w-120">
-            <h2 className="text-xl font-bold ">Fill the Details for New Session</h2>
+            <h2 className="text-xl font-bold ">
+              Fill the Details for New Session
+            </h2>
             {error && (
               <div className="bg-red-100 text-red-800 border border-red-300 p-2 rounded-md text-sm my-3">
                 {error}

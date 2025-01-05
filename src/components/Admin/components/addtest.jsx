@@ -39,19 +39,15 @@ const Addtest = () => {
         formData
       );
   
-      toast.success("Test created successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.success("Test created successfully!",{position:"top-center",
+        autoClose:3000});
   
       setTimeout(() => setRedirect(true), 3000);
     } catch (error) {
       console.error("Error Creating Test:", error);
   
-      toast.error("Error creating test. Please try again.", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.error("Error creating test. Please try again.",{position:"top-center",
+        autoClose:3000});
     }
   };
   if (redirect) {

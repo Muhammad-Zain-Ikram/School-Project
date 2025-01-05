@@ -41,7 +41,8 @@ const View = () => {
   const sumbit = async () => {
     try {
       if (!Teacher || !toClassId) {
-        toast.warning("Please fill in all details.");
+        toast.warning("Please fill in all details.",{position:"top-center",
+          autoClose:3000});
         return;
       }
 
@@ -49,10 +50,12 @@ const View = () => {
         incharge: Teacher,
         tograde: toClassId,
       });
-      toast.success("Incharge changed successfully!");
+      toast.success("Incharge changed successfully!",{position:"top-center",
+        autoClose:3000});
       updateGrade("");
     } catch (error) {
-      toast.error("Error transferring students. Please try again.");
+      toast.error("Error transferring students. Please try again.",{position:"top-center",
+        autoClose:3000});
       console.error("Error:", error);
     }
     onClose();
@@ -61,7 +64,8 @@ const View = () => {
   const Active = async () => {
     try {
       if (!Incharge || !activeGrade) {
-        toast.warning("Please fill in all details.");
+        toast.warning("Please fill in all details.",{position:"top-center",
+          autoClose:3000});
         return;
       }
 
@@ -69,10 +73,12 @@ const View = () => {
         gradeid: activeGrade,
         inchargeId: Incharge,
       });
-      toast.success("Class activated successfully!");
+      toast.success("Class activated successfully!",{position:"top-center",
+        autoClose:3000});
       updateGrade("");
     } catch (error) {
-      toast.error("Error activating class. Please try again.");
+      toast.error("Error activating class. Please try again.",{position:"top-center",
+        autoClose:3000});
       console.error("Error:", error);
     }
     onCloseActive();
@@ -81,17 +87,20 @@ const View = () => {
   const sumbitS = async () => {
     try {
       if (!selectedClass) {
-        toast.warning("Please select a class to remove.");
+        toast.warning("Please select a class to remove.",{position:"top-center",
+          autoClose:3000});
         return;
       }
 
       await sendJSONRequest(`${Backend}/portal/delete/class`, {
         gradeid: selectedClass,
       });
-      toast.success("Class removed successfully!");
+      toast.success("Class removed successfully!",{position:"top-center",
+        autoClose:3000});
       updateGrade("");
     } catch (error) {
-      toast.error("Error removing class. Please try again.");
+      toast.error("Error removing class. Please try again.",{position:"top-center",
+        autoClose:3000});
       console.error("Error:", error);
     }
     onCloseS();

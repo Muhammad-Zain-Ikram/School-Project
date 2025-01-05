@@ -24,33 +24,40 @@ const Students = () => {
   const open = () => {
     document.getElementById("level").style.display = "flex";
   };
+
   const sumbit = async () => {
     try {
-      if (selectedStudents.length === 0 || toClassId == "") {
-        alert("Please select at least one student to Transfer");
+      if (selectedStudents.length === 0 || toClassId === "") {
+        toast.error("Please select at least one student and a target class!",{position:"top-center",
+          autoClose:3000});
         return;
-      } else {
-        const transferData = selectedStudents.map((student) => student.id);
-
-        await sendJSONRequest(`${Backend}/portal/transfer/students`, {
-          studentsId: transferData,
-          toClassId, // target class ID
-        });
-
-        const response = await sendJSONRequest(`${Backend}/api/getStudents`);
-        setData(response.data);
-        setSelectedStudents([]);
-        onClose();
       }
+
+      const transferData = selectedStudents.map((student) => student.id);
+
+      await sendJSONRequest(`${Backend}/portal/transfer/students`, {
+        studentsId: transferData,
+        toClassId, // target class ID
+      });
+
+      const response = await sendJSONRequest(`${Backend}/api/getStudents`);
+      setData(response.data);
+      setSelectedStudents([]);
+      toast.success("Students transferred successfully!",{position:"top-center",
+        autoClose:3000});
+      onClose();
     } catch (error) {
+      toast.error("Error transferring students. Please try again.",{position:"top-center",
+        autoClose:3000});
       console.error("Error Transferring students:", error);
     }
   };
-  // Remove Students
+
   const handleRemoveStudents = async () => {
     try {
       if (selectedStudents.length === 0) {
-        alert("Please select at least one student to remove.");
+        toast.error("Please select at least one student to remove.",{position:"top-center",
+          autoClose:3000});
         return;
       }
 
@@ -64,31 +71,37 @@ const Students = () => {
       const response = await sendJSONRequest(`${Backend}/api/getStudents`);
       setData(response.data);
       setSelectedStudents([]);
+      toast.success("Students removed successfully!",{position:"top-center",
+        autoClose:3000});
     } catch (error) {
+      toast.error("Error removing students. Please try again.",{position:"top-center",
+        autoClose:3000});
       console.error("Error removing students:", error);
     }
   };
 
-  // Fetch class data
   useEffect(() => {
     const fetchClass = async () => {
       try {
         const response = await getRequest(`${Backend}/api/getClass`);
         setMyClass(response.data);
       } catch (error) {
+        toast.error("Error fetching class data.",{position:"top-center",
+          autoClose:3000});
         console.error("Error fetching class data:", error);
       }
     };
     fetchClass();
   }, []);
 
-  // Fetch student data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await sendJSONRequest(`${Backend}/api/getStudents`);
         setData(response.data);
       } catch (error) {
+        toast.error("Error fetching student data.",{position:"top-center",
+          autoClose:3000});
         console.error("Error fetching student data:", error);
       }
     };
@@ -122,7 +135,6 @@ const Students = () => {
     const cls = myclass.find((c) => c._id === id);
     return cls ? cls.label : "Unknown";
   };
-
   return (
     <div className="p-6">
       <ToastContainer />
