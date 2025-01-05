@@ -20,11 +20,10 @@ const Home = () => {
       </nav>
 
       {/* Main Section */}
-      <div className="flex flex-wrap justify-center md:justify-between gap-4 p-4 sm:p-6 md:p-8 max-w-screen-lg mx-auto">
-        {/* Row 1 */}
+      <div className="flex flex-wrap justify-between items-center gap-4 p-4 sm:p-6 md:p-8">        {/* Row 1 */}
         <NavLink
           to="/teachers/attendance"
-          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-8 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="w-[45%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-sky-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <FaUserGraduate />
@@ -36,7 +35,7 @@ const Home = () => {
 
         <Link
           to="your"
-          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-8 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="w-[45%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-orange-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <SlCalender />
@@ -49,7 +48,7 @@ const Home = () => {
         {/* Row 2 */}
         <NavLink
           to="view-test"
-          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="w-[45%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-emerald-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <MdEditNote />
@@ -61,8 +60,7 @@ const Home = () => {
 
         <NavLink
           to="all-test"
-          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
-        >
+          className="w-[45%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"        >
           <span className="text-rose-700 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <AiOutlineEye />
           </span>
