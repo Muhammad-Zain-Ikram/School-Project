@@ -10,9 +10,9 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Gradient Navbar */}
-      <nav className="flex justify-between items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-sky-600 text-white shadow-lg">
+      <nav className="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-blue-500 to-sky-600 text-white shadow-lg">
         <div className="flex items-center space-x-4">
-          <img src={Logo} alt="logo" className=" h-10 md:h-14" />
+          <img src={Logo} alt="logo" className="h-10 md:h-14" />
         </div>
         <p className="text-lg md:text-xl font-bold tracking-wide">
           UHS Teacher
@@ -20,11 +20,11 @@ const Home = () => {
       </nav>
 
       {/* Main Section */}
-      <div className="flex flex-wrap justify-between items-center gap-4 p-4 sm:p-6 md:p-8">
+      <div className="flex flex-wrap justify-center md:justify-between gap-4 p-4 sm:p-6 md:p-8 max-w-screen-lg mx-auto">
         {/* Row 1 */}
         <NavLink
           to="/teachers/attendance"
-          className="w-[45%] p-8 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-8 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-sky-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <FaUserGraduate />
@@ -36,7 +36,7 @@ const Home = () => {
 
         <Link
           to="your"
-          className="w-[45%] p-8 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-8 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-orange-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <SlCalender />
@@ -49,7 +49,7 @@ const Home = () => {
         {/* Row 2 */}
         <NavLink
           to="view-test"
-          className="w-[45%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-emerald-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <MdEditNote />
@@ -61,7 +61,7 @@ const Home = () => {
 
         <NavLink
           to="all-test"
-          className="w-[45%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-rose-700 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <AiOutlineEye />
@@ -71,12 +71,10 @@ const Home = () => {
           </p>
         </NavLink>
 
-        {/* Full-Width Box */}
-      </div>
-      <div className="flex justify-center items-center mb-3">
+        {/* Row 3 */}
         <NavLink
           to="students"
-          className="w-[45%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
+          className="flex-grow flex-shrink-0 w-full md:w-[48%] p-6 bg-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
         >
           <span className="text-blue-600 text-3xl pb-2 lg:text-7xl md:text-4xl">
             <AiOutlineEye />
