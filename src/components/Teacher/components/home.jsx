@@ -20,7 +20,7 @@ const Home = () => {
       </nav>
 
       {/* Main Section */}
-      <div className="flex flex-wrap justify-between items-center gap-4 p-4 sm:p-6 md:p-8">        {/* Row 1 */}
+      <div className="flex flex-wrap justify-center md:justify-between items-center gap-4 p-4 sm:p-6 md:p-8 max-w-screen-lg mx-auto">        {/* Row 1 */}
         <NavLink
           to="/teachers/attendance"
           className="w-[45%] p-6 bg-white text-white flex flex-col justify-center items-center text-center rounded-lg shadow-sm shadow-black hover:scale-105 transition-transform"
