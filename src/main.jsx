@@ -172,6 +172,7 @@ createRoot(document.getElementById("root")).render(
     <AuthProvider>
       <RouterProvider router={router} />
       <Analytics />
+      <SpeedInsights/>
     </AuthProvider>
     </LocalizationProvider>
   </StrictMode>
