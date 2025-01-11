@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import Get from "./components/Account/GetStarted.jsx";
 import Admin from "./components/Admin/Admin.jsx";
 import App from "./App.jsx";

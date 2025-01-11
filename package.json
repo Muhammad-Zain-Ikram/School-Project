@@ -15,6 +15,7 @@
     "@mui/material": "^6.2.0",
     "@mui/x-date-pickers": "^7.23.2",
     "@vercel/analytics": "^1.4.1",
+    "@vercel/speed-insights": "^1.1.0",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "mui": "^0.0.1",
